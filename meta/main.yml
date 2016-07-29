@@ -6,8 +6,8 @@ galaxy_info:
   description: Installs latest rabbitmq-server
   min_ansible_version: 2.1.0.0
   platforms:
-    - name: CentOS
+    - name: EL
       versions:
-      - 7
+        - 7
   galaxy_tags:
     - messagebroker
