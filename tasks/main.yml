@@ -6,3 +6,12 @@
 
 - name: ensure rabbitmq-server will be started
   service: name=rabbitmq-server state=started
+
+- name: add vhost sensu
+  command: rabbitmqctl add_vhost /sensu
+
+- name: add user sensu
+  command: rabbitmqctl add_user sensu secret
+
+- name: set permissions sensu
+  command: rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
