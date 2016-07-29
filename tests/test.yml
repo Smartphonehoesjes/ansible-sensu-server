@@ -1,0 +1,11 @@
+#source https://github.com/geerlingguy/ansible-role-composer/blob/master/tests/test.yml
+---
+- hosts: localhost
+  remote_user: root
+
+#  vars:
+#    php_enablerepo: "remi,remi-php70"
+#    php_enable_webserver: false
+
+roles:
+  - role_under_test
