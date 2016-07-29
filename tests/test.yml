@@ -7,5 +7,5 @@
 #    php_enablerepo: "remi,remi-php70"
 #    php_enable_webserver: false
 
-roles:
-  - role_under_test
+  roles:
+    - role_under_test
