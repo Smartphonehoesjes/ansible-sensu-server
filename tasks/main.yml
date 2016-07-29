@@ -1,2 +1,8 @@
 - name: install latest version of rabbitmq-server
   yum: name=rabbitmq-server state=latest
+
+- name: ensure rabbitmq-server is enabled on boot
+  service: name=rabbitmq-server enabled=yes
+
+- name: ensure rabbitmq-server will be started
+  service: name=rabbitmq-server state=started
