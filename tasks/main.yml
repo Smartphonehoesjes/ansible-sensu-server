@@ -79,6 +79,8 @@
     src: uchiwa.json
     dest: "{{ sensu_home }}/uchiwa.json"
   register: uchiwa_config
+  notify:
+    - restart uchiwa
 ##### end - sensu #####
 
 
