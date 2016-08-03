@@ -86,9 +86,6 @@
 
 
 ##### begin - sensuplugins #####
-git clone https://github.com/sensu-plugins/sensu-plugins-http.git /tmp/sensu-plugins-http
-sudo cp /tmp/sensu-plugins-http/bin/check-http.rb /etc/sensu/plugins/
-
 - name: be sure sensu-plugins-http is cloned
   command: git clone https://github.com/sensu-plugins/sensu-plugins-http.git /tmp/sensu-plugins-http
 
