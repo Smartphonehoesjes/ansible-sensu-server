@@ -1,2 +1,6 @@
 sensu_host: localhost
 sensu_home: /etc/sensu
+
+clients:
+  hello: world
+  host: localhost

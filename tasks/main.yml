@@ -76,7 +76,7 @@
 
 - name: be sure uchiwa.json is copied
   template:
-    src: uchiwa.json
+    src: uchiwa.j2
     dest: "{{ sensu_home }}/uchiwa.json"
   register: uchiwa_config
   notify:
