@@ -1,0 +1,11 @@
+sensu_host: localhost
+sensu_home: /etc/sensu
+sensu_conf_d: "{{ sensu_home }}/conf.d"
+
+clients:
+  hello: world
+  host: localhost
+
+websites:
+  http://unknownwebsite123: unknown
+  http://unknownwebsite456: unknown

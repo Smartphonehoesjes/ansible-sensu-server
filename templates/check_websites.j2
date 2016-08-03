@@ -1,0 +1,18 @@
+{
+  "checks": {
+{% for key, value in websites.iteritems() %}
+    "{{ value }}": {
+      "command": "/etc/sensu/plugins/check-http.rb -u {{ key }} -q '{{ value }}'",
+      "standalone": true,
+      "interval": 60,
+      "refresh": 60      
+    },
+{% endfor %}
+    "github": {
+      "command": "/etc/sensu/plugins/check-http.rb -u https://github.com -q github",
+      "standalone": true,
+      "interval": 60,
+      "refresh": 60
+    }
+  }
+}

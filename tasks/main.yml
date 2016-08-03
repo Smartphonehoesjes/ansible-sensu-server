@@ -1,11 +1,9 @@
-- name: install latest version of rabbitmq-server
+##### begin - rabbitmq #####
+- name: be sure rabbitmq-server is installed
   yum: name=rabbitmq-server state=latest
 
-- name: ensure rabbitmq-server is enabled on boot
-  service: name=rabbitmq-server enabled=yes
-
-- name: ensure rabbitmq-server will be started
-  service: name=rabbitmq-server state=started
+- name: be sure rabbitmq-server is running and enabled
+  service: name=rabbitmq-server state=started enabled=yes
 
 - name: get vhosts
   command: rabbitmqctl list_vhosts
@@ -33,3 +31,95 @@
 - name: set permissions sensu
   command: rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
   when: "'/sensu\t.*\t.*\t.*' not in permissions.stdout"
+##### end - rabbitmq #####
+
+
+
+##### begin - redis #####
+- name: be sure redis is installed
+  yum: name=redis state=latest
+
+- name: be sure redis is running and enabled
+  service: name=redis state=started enabled=yes
+##### end - redis #####
+
+
+
+##### begin - sensu #####
+- name: be sure sensu.repo is copied
+  copy:
+    src: sensu.repo
+    dest: /etc/yum.repos.d/sensu.repo
+
+- name: be sure sensu is installed
+  yum: name=sensu state=latest
+
+- name: be sure uchiwa is installed
+  yum: name=uchiwa state=latest
+
+- name: be sure client.json is copied
+  copy:
+    src: client.json
+    dest: "{{ sensu_home }}/conf.d/client.json"
+
+- name: be sure sensu-client is running and enabled
+  service: name=sensu-client state=started enabled=yes
+
+- name: be sure sensu-api is running and enabled
+  service: name=sensu-api state=started enabled=yes
+
+- name: be sure sensu-server is running and enabled
+  service: name=sensu-server state=started enabled=yes
+
+- name: be sure uchiwa is running and enabled
+  service: name=uchiwa state=started enabled=yes
+
+- name: be sure uchiwa.json is copied
+  template:
+    src: uchiwa.j2
+    dest: "{{ sensu_home }}/uchiwa.json"
+  notify:
+    - restart uchiwa
+##### end - sensu #####
+
+
+
+##### begin - sensuplugins #####
+- name: be sure sensu-plugins-http is cloned
+  command: git clone https://github.com/sensu-plugins/sensu-plugins-http.git /tmp/sensu-plugins-http
+
+- name: be sure check-http.rb is copied
+  copy:
+    src: /tmp/sensu-plugins-http/bin/check-http.rb
+    dest: /etc/sensu/plugins/check-http.rb
+    owner: sensu
+    group: sensu
+    mode: 0500
+  notify:
+    - restart sensu-api
+    - restart sensu-client
+    - restart sensu-server
+
+- name: be sure sensu-plugins-http is removed after copy
+  file: path=/tmp/sensu-plugins-http state=absent
+
+- name: be sure check_websites.json is copied
+  template:
+    src: check_websites.j2
+    dest: "{{ sensu_conf_d }}/check_websites.json"
+  register: check_websites_config
+  notify:
+    - restart uchiwa
+##### end - sensuplugins #####
+
+
+
+##### begin - graphite #####
+
+##### end - graphite #####
+
+
+
+##### begin - carbon #####
+
+##### end - carbon #####
