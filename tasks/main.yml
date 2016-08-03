@@ -42,4 +42,31 @@
 
 - name: be sure sensu is installed
   yum: name=sensu state=latest
+
+- name: be sure uchiwa is installed
+  yum: name=uchiwa state=latest
+
+- name: be sure sensu-client is running and enabled
+  service: name=sensu-client state=started enabled=yes
+
+- name: be sure sensu-api is running and enabled
+  service: name=sensu-api state=started enabled=yes
+
+- name: be sure sensu-server is running and enabled
+  service: name=sensu-server state=started enabled=yes
+
+- name: be sure uchiwa is running and enabled
+  service: name=uchiwa state=started enabled=yes
 ##### end - sensu #####
+
+
+
+##### begin - graphite #####
+
+##### end - graphite #####
+
+
+
+##### begin - carbon #####
+
+##### end - carbon #####
