@@ -46,6 +46,11 @@
 - name: be sure uchiwa is installed
   yum: name=uchiwa state=latest
 
+- name: be sure client.json is copied
+  copy:
+    src: client.json
+    dest: /etc/sensu/conf.d/client.json
+
 - name: be sure sensu-client is running and enabled
   service: name=sensu-client state=started enabled=yes
 
