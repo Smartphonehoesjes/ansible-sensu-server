@@ -1,11 +1,9 @@
-- name: install latest version of rabbitmq-server
+##### begin - rabbitmq #####
+- name: be sure rabbitmq-server is installed
   yum: name=rabbitmq-server state=latest
 
-- name: ensure rabbitmq-server is enabled on boot
-  service: name=rabbitmq-server enabled=yes
-
-- name: ensure rabbitmq-server will be started
-  service: name=rabbitmq-server state=started
+- name: be sure rabbitmq-server is running and enabled
+  service: name=rabbitmq-server state=started enabled=yes
 
 - name: get vhosts
   command: rabbitmqctl list_vhosts
@@ -33,3 +31,13 @@
 - name: set permissions sensu
   command: rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
   when: "'/sensu\t.*\t.*\t.*' not in permissions.stdout"
+##### end - rabbitmq #####
+
+
+##### begin - sensu #####
+- name: be sure sensu.repo is copied
+  copy: src=/rabbitmq/sensu.repo dest=/etc/yum.repos.d/sensu.repo
+
+- name: be sure sensu is installed
+  yum: name=sensu state=latest
+##### end - sensu #####
