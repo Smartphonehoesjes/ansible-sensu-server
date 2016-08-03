@@ -34,6 +34,17 @@
 ##### end - rabbitmq #####
 
 
+
+##### begin - redis #####
+- name: be sure redis is installed
+  yum: name=redis state=latest
+
+- name: be sure redis is running and enabled
+  service: name=redis state=started enabled=yes
+##### end - redis #####
+
+
+
 ##### begin - sensu #####
 - name: be sure sensu.repo is copied
   copy:
