@@ -4,3 +4,7 @@ sensu_home: /etc/sensu
 clients:
   hello: world
   host: localhost
+
+websites:
+  http://github.com: github
+  http://unknownwebsite123: unknown
