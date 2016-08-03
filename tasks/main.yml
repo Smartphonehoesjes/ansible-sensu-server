@@ -98,7 +98,7 @@
 - name: be sure check_websites.json is copied
   template:
     src: check_websites.j2
-    dest: "{{ sensu_conf.d }}/check_websites.json"
+    dest: "{{ sensu_conf_d }}/check_websites.json"
   register: check_websites_config
   notify:
     - restart uchiwa
