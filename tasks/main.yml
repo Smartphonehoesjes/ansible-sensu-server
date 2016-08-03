@@ -61,13 +61,6 @@
   copy:
     src: client.json
     dest: "{{ sensu_home }}/conf.d/client.json"
-    owner: sensu
-    group: sensu
-    mode: 0500
-  notify:
-    - restart sensu-api
-    - restart sensu-client
-    - restart sensu-server
 
 - name: be sure sensu-client is running and enabled
   service: name=sensu-client state=started enabled=yes
@@ -96,7 +89,16 @@
   command: git clone https://github.com/sensu-plugins/sensu-plugins-http.git /tmp/sensu-plugins-http
 
 - name: be sure check-http.rb is copied
-  copy: src=/tmp/sensu-plugins-http/bin/check-http.rb dest=/etc/sensu/plugins/check-http.rb
+  copy:
+    src: /tmp/sensu-plugins-http/bin/check-http.rb
+    dest: /etc/sensu/plugins/check-http.rb
+    owner: sensu
+    group: sensu
+    mode: 0500
+  notify:
+    - restart sensu-api
+    - restart sensu-client
+    - restart sensu-server
 
 - name: be sure sensu-plugins-http is removed after copy
   file: path=/tmp/sensu-plugins-http state=absent
