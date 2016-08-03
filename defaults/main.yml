@@ -7,5 +7,5 @@ clients:
   host: localhost
 
 websites:
-  http://github.com: github
   http://unknownwebsite123: unknown
+  http://unknownwebsite456: unknown

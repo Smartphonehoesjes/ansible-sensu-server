@@ -61,6 +61,13 @@
   copy:
     src: client.json
     dest: "{{ sensu_home }}/conf.d/client.json"
+    owner: sensu
+    group: sensu
+    mode: 0500
+  notify:
+    - restart sensu-api
+    - restart sensu-client
+    - restart sensu-server
 
 - name: be sure sensu-client is running and enabled
   service: name=sensu-client state=started enabled=yes
@@ -78,7 +85,6 @@
   template:
     src: uchiwa.j2
     dest: "{{ sensu_home }}/uchiwa.json"
-  register: uchiwa_config
   notify:
     - restart uchiwa
 ##### end - sensu #####
