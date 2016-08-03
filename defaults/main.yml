@@ -1,0 +1,2 @@
+sensu_host: localhost
+sensu_home: /etc/sensu

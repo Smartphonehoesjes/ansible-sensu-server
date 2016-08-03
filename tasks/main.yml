@@ -60,7 +60,7 @@
 - name: be sure client.json is copied
   copy:
     src: client.json
-    dest: /etc/sensu/conf.d/client.json
+    dest: "{{ sensu_home }}/conf.d/client.json"
 
 - name: be sure sensu-client is running and enabled
   service: name=sensu-client state=started enabled=yes
@@ -73,6 +73,12 @@
 
 - name: be sure uchiwa is running and enabled
   service: name=uchiwa state=started enabled=yes
+
+- name: be sure uchiwa.json is copied
+  template:
+    src: uchiwa.json
+    dest: "{{ sensu_home }}/uchiwa.json"
+  register: uchiwa_config
 ##### end - sensu #####
 
 
