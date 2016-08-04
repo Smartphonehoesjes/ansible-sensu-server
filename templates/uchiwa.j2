@@ -10,14 +10,11 @@
       "user": "",
       "pass": "",
       "timeout": 10
-    },
-{% endfor %}
-    {
-      "name": "sensu",
-      "host": "{{ sensu_host }}",
-      "port": 4567,
-      "timeout": 10
     }
+{% if not loop.last %}
+,
+{% endif %}
+{% endfor %}
   ],
   "uchiwa": {
     "host": "0.0.0.0",
