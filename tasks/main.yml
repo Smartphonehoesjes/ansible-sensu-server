@@ -92,6 +92,7 @@
   copy:
     src: /tmp/sensu-plugins-http/bin/check-http.rb
     dest: /etc/sensu/plugins/check-http.rb
+    remote_src: true
     owner: sensu
     group: sensu
     mode: 0500
