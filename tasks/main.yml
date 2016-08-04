@@ -110,7 +110,9 @@
     dest: "{{ sensu_conf_d }}/check_websites.json"
   register: check_websites_config
   notify:
-    - restart uchiwa
+    - restart sensu-api
+    - restart sensu-client
+    - restart sensu-server
 ##### end - sensuplugins #####
 
 
