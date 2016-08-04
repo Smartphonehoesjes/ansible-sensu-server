@@ -103,9 +103,6 @@
     - restart sensu-client
     - restart sensu-server
 
-- name: be sure sensu-plugins-http is removed after copy
-  file: path=/tmp/sensu-plugins-http state=absent
-
 - name: be sure check_websites.json is copied
   template:
     src: check_websites.j2
