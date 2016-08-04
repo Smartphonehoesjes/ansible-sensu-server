@@ -1,8 +1,8 @@
 {
   "checks": {
-{% for key, value in websites.iteritems() %}
-    "{{ value }}": {
-      "command": "/etc/sensu/plugins/check-http.rb -u {{ key }} -q '{{ value }}'",
+{% for website in websites %}
+    "{{ website.name }}": {
+      "command": "/etc/sensu/plugins/check-http.rb -u {{ website.url }} -q '{{ website.keyword }}'",
       "standalone": true,
       "interval": 60,
       "refresh": 60      

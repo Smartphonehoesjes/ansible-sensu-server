@@ -7,5 +7,9 @@ clients:
   host: localhost
 
 websites:
-  http://unknownwebsite123: unknown
-  http://unknownwebsite456: unknown
+  - name: website1
+    url: http://unknownwebsite123
+    keyword: unknown
+  - name: website2
+    url: http://unknownwebsite456
+    keyword: unknown
