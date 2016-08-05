@@ -6,6 +6,16 @@ clients:
   hello: world
   host: localhost
 
+uchiwa_users:
+  - name: helloadmin
+    password: pw
+    accessToken: ""
+    readonly: false
+  - name: helloguest
+    password: pw2
+    accessToken: ""
+    readonly: true
+
 websites:
   - name: website1
     url: http://unknownwebsite123
