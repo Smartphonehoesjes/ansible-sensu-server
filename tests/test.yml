@@ -1,6 +1,5 @@
+---
 - hosts: localhost
   remote_user: root
   roles:
-    - geerlingguy.git
-    - role_under_test
-  become: true
+    - ansible-sensu
