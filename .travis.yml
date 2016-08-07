@@ -21,7 +21,7 @@ env:
 #  - 'sudo docker build --rm=true --file=tests/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible tests'
 #
 script:
-  - yum install ansible -y
+  - apt-get install ansible -y
   - ansible-galaxy install -r /etc/ansible/roles/role_under_test/tests/requirements.yml
 #  - container_id=$(mktemp)
 #  # Run container in detached state
