@@ -46,7 +46,7 @@ script:
   
 after_failure:
   # Check what happened via journalctl
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm journalctl -xe'
+  #- 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm journalctl -xe'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=ls /var/log/sensu'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=sudo cat /var/log/sensu/sensu-client.log'
   
