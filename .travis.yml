@@ -42,11 +42,12 @@ script:
     || (echo 'Idempotence test: fail' && exit 1)
 
   # Make sure uchiwa is running.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm curl http://localhost:$http_port_uchiwa'
+  #- 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm curl http://localhost:$http_port_uchiwa'
   
 after_failure:
   # Check what happened via journalctl
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm journalctl -xe'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=cat /var/log/sensu/sensu-client.log'
   
 
   # Clean up
