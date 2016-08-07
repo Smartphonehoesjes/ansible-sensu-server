@@ -41,10 +41,10 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
-  # Make sure Jenkins is running.
+  # Make sure uchiwa is running.
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm curl http://localhost:$http_port_uchiwa'
   
-  after_failure:
+after_failure:
   # Check what happened via journalctl
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm journalctl -xe'
   
