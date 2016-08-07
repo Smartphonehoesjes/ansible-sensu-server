@@ -5,6 +5,7 @@ dependencies:
 galaxy_info:
   author: 030
   description: Installs latest rabbitmq-server
+  license: 'MIT'
   min_ansible_version: 2.1.0.0
   platforms:
     - name: EL
