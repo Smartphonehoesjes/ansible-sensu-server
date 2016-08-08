@@ -35,12 +35,12 @@ env:
     run_opts: ""
     SITE: package
     GIT_VERSION: 1.9.1
-#  - distribution: ubuntu
-#    version: 12.04
-#    init: /sbin/init
-#    run_opts: ""
-#    SITE: package
-#    GIT_VERSION: 1.7.9.5
+  - distribution: ubuntu
+    version: 16.04
+    init: /sbin/init
+    run_opts: ""
+    SITE: package
+    GIT_VERSION: 1.7.9.5
 
 services:
   - docker
