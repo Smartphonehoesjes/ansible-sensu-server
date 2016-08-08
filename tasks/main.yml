@@ -1,3 +1,6 @@
+- name: be sure variables are deployed
+  include_vars: "{{ ansible_os_family }}.yml"
+
 # be sure sensu is installed
 - include: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
