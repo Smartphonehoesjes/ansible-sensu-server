@@ -75,6 +75,7 @@ script:
 
   # Ensure Git is installed and at the right version.
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm sudo systemctl status sensu-client.service -l'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/init.d'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm which git'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm test -x /usr/bin/git'
 
