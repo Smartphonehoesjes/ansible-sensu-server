@@ -2,11 +2,6 @@
 sudo: required
 
 env:
-  - distribution: centos
-    version: 6
-    init: /sbin/init
-    run_opts: ""
-    SITE: package
   - distribution: ubuntu
     version: 14.04
     init: /sbin/init
