@@ -3,6 +3,9 @@
     src: sensu.list
     dest: /etc/apt/sources.list.d/sensu.list
 
+- name: be sure apt is updated
+  apt: update
+
 - name: be sure sensu is installed
   apt: name=sensu state=latest
 
