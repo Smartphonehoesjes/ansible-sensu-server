@@ -1,7 +1,14 @@
-##### begin - rabbitmq #####
-- name: be sure rabbitmq-server is installed
-  yum: name=rabbitmq-server state=latest
+- name: be sure variables are deployed
+  include_vars: "{{ ansible_os_family }}.yml"
 
+# be sure sensu is installed
+- include: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+##### begin - rabbitmq #####
 - name: be sure rabbitmq-server is running and enabled
   service: name=rabbitmq-server state=started enabled=yes
 
@@ -35,28 +42,9 @@
 
 
 
-##### begin - redis #####
-- name: be sure redis is installed
-  yum: name=redis state=latest
-
-- name: be sure redis is running and enabled
-  service: name=redis state=started enabled=yes
-##### end - redis #####
-
 
 
 ##### begin - sensu #####
-- name: be sure sensu.repo is copied
-  copy:
-    src: sensu.repo
-    dest: /etc/yum.repos.d/sensu.repo
-
-- name: be sure sensu is installed
-  yum: name=sensu state=latest
-
-- name: be sure uchiwa is installed
-  yum: name=uchiwa state=latest
-
 - name: be sure client.json is copied
   copy:
     src: client.json
