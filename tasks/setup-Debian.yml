@@ -4,6 +4,9 @@
 - name: be sure redis-server is installed
   apt: name=redis-server state=latest
 
+- name: be sure redis-server is running and enabled
+  service: name=redis-server state=started enabled=yes
+
 - name: be sure sensu apt repository key is deployed
   apt_key:
     url: "{{ sensu_repo_key_url }}"

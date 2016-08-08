@@ -53,11 +53,6 @@
 
 
 
-##### begin - redis #####
-- name: be sure redis is running and enabled
-  service: name=redis state=started enabled=yes
-##### end - redis #####
-
 
 
 ##### begin - sensu #####
