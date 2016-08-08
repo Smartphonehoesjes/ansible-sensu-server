@@ -3,11 +3,8 @@
     src: sensu.list
     dest: /etc/apt/sources.list.d/sensu.list
 
-- name: be sure apt is updated
-  apt: update
-
 - name: be sure sensu is installed
-  apt: name=sensu state=latest
+  apt: name=sensu state=latest update_cache=yes
 
 - name: be sure uchiwa is installed
-  apt: name=uchiwa state=latest
+  apt: name=uchiwa state=latest update_cache=yes
