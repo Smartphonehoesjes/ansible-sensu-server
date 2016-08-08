@@ -1,17 +1,6 @@
 - name: be sure variables are deployed
   include_vars: "{{ ansible_os_family }}.yml"
 
-- name: be sure sensu_repo_url is set
-  set_fact:
-    sensu_repo_url: "{{ __sensu_repo_url }}"
-  when: sensu_repo_url is not defined
-
-- name: be sure sensu_repo_key_url is set
-  set_fact:
-    sensu_repo_key_url: "{{ __sensu_repo_key_url }}"
-  when: sensu_repo_key_url is not defined
-
-
 # be sure sensu is installed
 - include: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'

@@ -1,3 +1,13 @@
+- name: be sure sensu_repo_url is set
+  set_fact:
+    sensu_repo_url: "{{ __sensu_repo_url }}"
+  when: sensu_repo_url is not defined
+
+- name: be sure sensu_repo_key_url is set
+  set_fact:
+    sensu_repo_key_url: "{{ __sensu_repo_key_url }}"
+  when: sensu_repo_key_url is not defined
+
 - name: be sure rabbitmq-server is installed
   apt: name=rabbitmq-server state=latest
 
