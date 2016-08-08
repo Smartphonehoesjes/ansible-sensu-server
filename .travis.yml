@@ -29,12 +29,12 @@ env:
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     SITE: package
     GIT_VERSION: 1.8.3.1
-#  - distribution: ubuntu
-#    version: 14.04
-#    init: /sbin/init
-#    run_opts: ""
-#    SITE: package
-#    GIT_VERSION: 1.9.1
+  - distribution: ubuntu
+    version: 14.04
+    init: /sbin/init
+    run_opts: ""
+    SITE: package
+    GIT_VERSION: 1.9.1
 #  - distribution: ubuntu
 #    version: 12.04
 #    init: /sbin/init

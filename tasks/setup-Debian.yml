@@ -1,1 +1,10 @@
-#
+- name: be sure sensu.list is copied
+  copy:
+    src: sensu.list
+    dest: /etc/apt/sources.list.d/sensu.list
+
+- name: be sure sensu is installed
+  apt: name=sensu state=latest
+
+- name: be sure uchiwa is installed
+  apt: name=uchiwa state=latest
