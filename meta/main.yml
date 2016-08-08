@@ -11,5 +11,9 @@ galaxy_info:
     - name: EL
       versions:
         - 7
+    - name: Ubuntu
+      versions:
+        - 14.04
+        - 16.04
   galaxy_tags:
     - messagebroker
