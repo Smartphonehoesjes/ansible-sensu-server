@@ -1,23 +1,17 @@
+- name: be sure rabbitmq-server is installed
+  apt: name=rabbitmq-server state=latest
+
+- name: be sure redis-server is installed
+  apt: name=redis-server state=latest
+
 - name: be sure sensu apt repository key is deployed
   apt_key:
     url: "{{ sensu_repo_key_url }}"
-    state: present
 
 - name: be sure sensu apt repository is deployed
   apt_repository:
     repo: "{{ sensu_repo_url }}"
-    state: present
     update_cache: yes
-
-
-
-
-
-
-#- name: be sure sensu.list is copied
-#  copy:
-#    src: sensu.list
-#    dest: /etc/apt/sources.list.d/sensu.list
 
 - name: be sure sensu is installed
   apt: name=sensu state=latest
