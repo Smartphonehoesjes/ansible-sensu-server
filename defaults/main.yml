@@ -1,7 +1,9 @@
+client: false
+server: false
+
 sensu_host: localhost
 sensu_home: /etc/sensu
 sensu_conf_d: "{{ sensu_home }}/conf.d"
-client: true
 
 clients:
   hello: world
