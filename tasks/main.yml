@@ -8,8 +8,8 @@
 - include: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
-- include: server.yml
-  when: server
-
-- include: tasks/client.yml
-  when: client
+#- include: server.yml
+#  when: server
+#
+#- include: tasks/client.yml
+#  when: client
