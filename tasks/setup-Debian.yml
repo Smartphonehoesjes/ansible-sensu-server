@@ -3,31 +3,31 @@
     sensu_repo_url: "{{ __sensu_repo_url }}"
   when: sensu_repo_url is not defined
 
-#- name: be sure sensu_repo_key_url is set
-#  set_fact:
-#    sensu_repo_key_url: "{{ __sensu_repo_key_url }}"
-#  when: sensu_repo_key_url is not defined
-#
-#- name: be sure rabbitmq-server is installed
-#  apt: name=rabbitmq-server state=latest
-#
-#- name: be sure redis-server is installed
-#  apt: name=redis-server state=latest
-#
-#- name: be sure redis-server is running and enabled
-#  service: name=redis-server state=started enabled=yes
-#
-#- name: be sure sensu apt repository key is deployed
-#  apt_key:
-#    url: "{{ sensu_repo_key_url }}"
-#
-#- name: be sure sensu apt repository is deployed
-#  apt_repository:
-#    repo: "{{ sensu_repo_url }}"
-#    update_cache: yes
-#
-#- name: be sure sensu is installed
-#  apt: name=sensu state=latest
-#
-#- name: be sure uchiwa is installed
-#  apt: name=uchiwa state=latest
+- name: be sure sensu_repo_key_url is set
+  set_fact:
+    sensu_repo_key_url: "{{ __sensu_repo_key_url }}"
+  when: sensu_repo_key_url is not defined
+
+- name: be sure rabbitmq-server is installed
+  apt: name=rabbitmq-server state=latest
+
+- name: be sure redis-server is installed
+  apt: name=redis-server state=latest
+
+- name: be sure redis-server is running and enabled
+  service: name=redis-server state=started enabled=yes
+
+- name: be sure sensu apt repository key is deployed
+  apt_key:
+    url: "{{ sensu_repo_key_url }}"
+
+- name: be sure sensu apt repository is deployed
+  apt_repository:
+    repo: "{{ sensu_repo_url }}"
+    update_cache: yes
+
+- name: be sure sensu is installed
+  apt: name=sensu state=latest
+
+- name: be sure uchiwa is installed
+  apt: name=uchiwa state=latest
