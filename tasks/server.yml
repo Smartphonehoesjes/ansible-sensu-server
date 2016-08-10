@@ -1,6 +1,3 @@
-- include: rabbitmq.yml
-  when: rabbitmq
-
 - name: be sure sensu-api is running and enabled
   service: name=sensu-api state=started enabled=yes
 
