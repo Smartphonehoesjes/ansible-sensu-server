@@ -1,1 +1,18 @@
-#placeholder
+- include: rabbitmq.yml
+  when: rabbitmq
+
+- name: be sure sensu-api is running and enabled
+  service: name=sensu-api state=started enabled=yes
+
+- name: be sure sensu-server is running and enabled
+  service: name=sensu-server state=started enabled=yes
+
+- name: be sure uchiwa is running and enabled
+  service: name=uchiwa state=started enabled=yes
+
+- name: be sure uchiwa.json is copied
+  template:
+    src: uchiwa.j2
+    dest: "{{ sensu_home }}/uchiwa.json"
+  notify:
+    - restart uchiwa

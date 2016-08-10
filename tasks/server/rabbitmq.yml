@@ -1,0 +1,29 @@
+- name: be sure rabbitmq-server is running and enabled
+  service: name=rabbitmq-server state=started enabled=yes
+
+- name: get vhosts
+  command: rabbitmqctl list_vhosts
+  register: vhosts
+  changed_when: false
+
+- name: add vhost sensu
+  command: rabbitmqctl add_vhost /sensu
+  when: "'/sensu' not in vhosts.stdout" #http://serverfault.com/a/792721/215599
+
+- name: get users
+  command: rabbitmqctl list_users
+  register: users
+  changed_when: false
+
+- name: add user sensu
+  command: rabbitmqctl add_user sensu secret
+  when: "'sensu' not in users.stdout"
+
+- name: get permissions
+  command: rabbitmqctl list_user_permissions sensu
+  register: permissions
+  changed_when: false
+
+- name: set permissions sensu
+  command: rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
+  when: "'/sensu\t.*\t.*\t.*' not in permissions.stdout"
