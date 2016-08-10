@@ -11,11 +11,11 @@
 - name: be sure rabbitmq-server is installed
   apt: name=rabbitmq-server state=latest
 
-- name: be sure redis-server is installed
-  apt: name=redis-server state=latest
-
-- name: be sure redis-server is running and enabled
-  service: name=redis-server state=started enabled=yes
+#- name: be sure redis-server is installed
+#  apt: name=redis-server state=latest
+#
+#- name: be sure redis-server is running and enabled
+#  service: name=redis-server state=started enabled=yes
 
 #- name: be sure sensu apt repository key is deployed
 #  apt_key:
