@@ -1,15 +1,14 @@
 - name: be sure variables are deployed
   include_vars: "{{ ansible_os_family }}.yml"
 
-# be sure sensu is installed
-- include: setup-RedHat.yml
+- include: install/RedHat.yml
   when: ansible_os_family == 'RedHat'
 
-- include: setup-Debian.yml
+- include: install/Debian.yml
   when: ansible_os_family == 'Debian'
 
-#- include: server.yml
-#  when: server
-#
-#- include: tasks/client.yml
-#  when: client
+- include: server.yml
+  when: server
+
+- include: tasks/client.yml
+  when: client
