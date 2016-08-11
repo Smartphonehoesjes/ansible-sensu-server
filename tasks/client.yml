@@ -29,16 +29,10 @@
     owner: sensu
     group: sensu
     mode: 0500
-  notify:
-    - restart sensu-api
-    - restart sensu-client
-    - restart sensu-server
+  notify: restart sensu-services
 
 - name: be sure check_websites.json is copied
   template:
     src: check_websites.j2
     dest: "{{ sensu_conf_d }}/check_websites.json"
-  notify:
-    - restart sensu-api
-    - restart sensu-client
-    - restart sensu-server
+  notify: restart sensu-services
