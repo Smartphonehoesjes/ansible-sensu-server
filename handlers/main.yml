@@ -14,3 +14,11 @@
   service:
     name: uchiwa
     state: restarted
+- name: restart sensu-services #http://serverfault.com/a/796076/215599
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - sensu-api
+    - sensu-client
+    - sensu-server
