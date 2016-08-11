@@ -1,7 +1,7 @@
 {
   "client": {
-    "name": "rhel",
-    "address": "127.0.0.1",
+    "name": "{{ ansible_fqdn }}",
+    "address": "{{ sensu_client_ip }}",
     "environment": "development",
     "subscriptions": [
       "dev",
