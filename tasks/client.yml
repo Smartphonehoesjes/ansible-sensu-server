@@ -1,7 +1,16 @@
 - name: be sure client.json is copied
-  copy:
-    src: client.json
-    dest: "{{ sensu_home }}/conf.d/client.json"
+  template:
+    src: client.j2
+    dest: "{{ sensu_conf_d }}/client.json"
+  notify:
+    - restart sensu-client
+
+- name: be sure rabbitmq.json is copied
+  template:
+    src: rabbitmq.j2
+    dest: "{{ sensu_conf_d }}/rabbitmq.json"
+  notify:
+    - restart sensu-client
 
 - name: be sure sensu-client is running and enabled
   service: name=sensu-client state=started enabled=yes
