@@ -1,25 +1,8 @@
 - name: be sure rabbitmq-server is installed
   yum: name=rabbitmq-server state=latest
 
-
-
-
 - name: be sure redis is installed
   yum: name=redis state=latest
 
 - name: be sure redis is running and enabled
   service: name=redis state=started enabled=yes
-
-
-
-
-- name: be sure sensu.repo is copied
-  copy:
-    src: sensu.repo
-    dest: /etc/yum.repos.d/sensu.repo
-
-- name: be sure sensu is installed
-  yum: name=sensu state=latest
-
-- name: be sure uchiwa is installed
-  yum: name=uchiwa state=latest
