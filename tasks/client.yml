@@ -29,7 +29,6 @@
   template:
     src: check_websites.j2
     dest: "{{ sensu_conf_d }}/check_websites.json"
-  register: check_websites_config
   notify:
     - restart sensu-api
     - restart sensu-client
