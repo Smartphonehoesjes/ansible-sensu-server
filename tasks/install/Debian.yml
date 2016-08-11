@@ -18,7 +18,11 @@
     update_cache: yes
 
 - name: be sure sensu is installed
-  apt: name=sensu state=latest
+  apt:
+    name: sensu
+    state: latest
 
 - name: be sure uchiwa is installed
-  apt: name=uchiwa state=latest
+  apt:
+    name: uchiwa
+    state: latest
