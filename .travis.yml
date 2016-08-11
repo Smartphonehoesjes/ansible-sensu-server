@@ -7,6 +7,21 @@ env:
     init: /sbin/init
     run_opts: ""
     SITE: package
+  - distribution: ubuntu
+    version: 14.04
+    init: /sbin/init
+    run_opts: ""
+    SITE: sensu-client
+  - distribution: ubuntu
+    version: 14.04
+    init: /sbin/init
+    run_opts: ""
+    SITE: sensu-server
+  - distribution: ubuntu
+    version: 14.04
+    init: /sbin/init
+    run_opts: ""
+    SITE: all
   - distribution: centos
     version: 7
     init: /usr/lib/systemd/systemd
