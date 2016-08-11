@@ -1,5 +1,3 @@
-
-
 - include: server/RedHat.yml
   when: ansible_os_family == 'RedHat'
 
@@ -7,8 +5,8 @@
   when: ansible_os_family == 'Debian'
 
 
-
-
+####### begin - rabbitmq #######
+#TODO: [GH-57] replace with galaxy module
 - name: be sure rabbitmq-server is running and enabled
   service: name=rabbitmq-server state=started enabled=yes
 
@@ -38,8 +36,7 @@
 - name: set permissions sensu
   command: rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
   when: "'/sensu\t.*\t.*\t.*' not in permissions.stdout"
-
-
+####### end - rabbitmq #######
 
 
 
