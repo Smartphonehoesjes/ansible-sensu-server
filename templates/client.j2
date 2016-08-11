@@ -1,7 +1,7 @@
 {
   "client": {
     "name": "{{ ansible_fqdn }}",
-    "address": "{{ ansible_eth0.ipv4.address }}",
+    "address": "{{ sensu_client_ip }}",
     "environment": "development",
     "subscriptions": [
       "dev",

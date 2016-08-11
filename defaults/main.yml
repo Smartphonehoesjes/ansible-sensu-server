@@ -4,6 +4,7 @@ server: false
 sensu_host: localhost
 sensu_home: /etc/sensu
 sensu_conf_d: "{{ sensu_home }}/conf.d"
+sensu_client_ip: 127.0.0.1
 
 rabbitmq_host: 127.0.0.1
 rabbitmq_sensu_password: secret
