@@ -1,5 +1,5 @@
-client: true
-server: true
+client: false
+server: false
 
 sensu_host: localhost
 sensu_home: /etc/sensu
