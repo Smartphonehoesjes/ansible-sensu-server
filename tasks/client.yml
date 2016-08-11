@@ -13,7 +13,10 @@
     - restart sensu-client
 
 - name: be sure sensu-client is running and enabled
-  service: name=sensu-client state=started enabled=yes
+  service:
+    name: sensu-client
+    state: started
+    enabled: yes
 
 - name: be sure sensu-plugins-http is cloned
   git:

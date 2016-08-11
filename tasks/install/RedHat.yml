@@ -4,7 +4,11 @@
     dest: /etc/yum.repos.d/sensu.repo
 
 - name: be sure sensu is installed
-  yum: name=sensu state=latest
+  yum:
+    name: sensu
+    state: latest
 
 - name: be sure uchiwa is installed
-  yum: name=uchiwa state=latest
+  yum:
+    name: uchiwa
+    state: latest
