@@ -1,4 +1,0 @@
-- name: be sure uchiwa is installed
-  apt:
-    name: uchiwa
-    state: latest

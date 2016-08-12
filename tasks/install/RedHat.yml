@@ -1,4 +1,0 @@
-- name: be sure uchiwa is installed
-  yum:
-    name: uchiwa
-    state: latest

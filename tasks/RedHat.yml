@@ -13,3 +13,8 @@
     name: redis
     state: started
     enabled: yes
+
+- name: be sure uchiwa is installed
+  yum:
+    name: uchiwa
+    state: latest
