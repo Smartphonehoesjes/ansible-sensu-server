@@ -1,7 +1,4 @@
 ---
-dependencies:
-  - { role: geerlingguy.git }
-
 galaxy_info:
   author: 030
   description: Installs latest sensu
@@ -16,3 +13,7 @@ galaxy_info:
         - 14.04
   galaxy_tags:
     - messagebroker
+
+dependencies:
+  - { role: 030.sensu-install }
+  - { role: 030.sensu-client }

@@ -13,3 +13,8 @@
     name: redis-server
     state: started
     enabled: yes
+
+- name: be sure uchiwa is installed
+  apt:
+    name: uchiwa
+    state: latest
