@@ -1,7 +1,4 @@
 ---
-dependencies:
-  - { role: geerlingguy.git }
-
 galaxy_info:
   author: 030
   description: Installs latest sensu
