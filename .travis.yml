@@ -2,11 +2,12 @@
 sudo: required
 
 env:
-  - distribution: ubuntu
-    version: 14.04
-    init: /sbin/init
-    run_opts: ""
-    SITE: package
+#TODO: [GH-87] ubuntu build stalls
+#  - distribution: ubuntu
+#    version: 14.04
+#    init: /sbin/init
+#    run_opts: ""
+#    SITE: package
   - distribution: centos
     version: 7
     init: /usr/lib/systemd/systemd
