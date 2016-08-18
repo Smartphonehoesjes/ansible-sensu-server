@@ -18,3 +18,4 @@ dependencies:
   - { role: 030.sensu-install }
   - { role: 030.sensu-client, version: 0.2.1 }
   - { role: geerlingguy.apache, version: 1.7.2 }
+  - { role: nsg.graphite, version: 1.5 }

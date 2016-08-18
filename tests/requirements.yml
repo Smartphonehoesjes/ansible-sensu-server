@@ -1,3 +1,4 @@
 - src: 030.sensu-install
 - src: 030.sensu-client
 - src: geerlingguy.apache
+- src: nsg.graphite
