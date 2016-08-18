@@ -2,7 +2,7 @@
 - hosts: localhost
   remote_user: root
   vars:
-    graphite_secret_key: hello_graphite_secret_key
+    graphite_secret_key: DEFAULT
   roles:
     - role_under_test
     - geerlingguy.git
