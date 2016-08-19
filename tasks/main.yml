@@ -68,3 +68,11 @@
     dest: "{{ sensu_home }}/uchiwa.json"
   notify:
     - restart uchiwa
+
+- name: be sure relay is copied
+  copy:
+    src: relay.conf
+    dest: {{ sensu_conf_d }}/relay.conf
+    owner: sensu
+    group: sensu
+    mode: 0400
