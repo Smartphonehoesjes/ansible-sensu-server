@@ -19,6 +19,7 @@
   copy:
     src: /usr/share/graphite-web/apache2-graphite.conf
     dest: /etc/apache2/sites-available
+    remote_src: True
 
 - name: enable graphite virtualhost
   command: a2ensite apache2-graphite
