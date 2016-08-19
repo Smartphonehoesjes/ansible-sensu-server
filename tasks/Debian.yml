@@ -1,20 +1,16 @@
-- name: be sure rabbitmq-server is installed
+- name: be sure {{ item }} is installed
   apt:
-    name: rabbitmq-server
+    name: "{{ item }}"
     state: latest
-
-- name: be sure redis-server is installed
-  apt:
-    name: redis-server
-    state: latest
+  with_items:
+    - graphite-web
+    - graphite-carbon
+    - rabbitmq-server
+    - redis-server
+    - uchiwa
 
 - name: be sure redis-server is running and enabled
   service:
     name: redis-server
     state: started
     enabled: yes
-
-- name: be sure uchiwa is installed
-  apt:
-    name: uchiwa
-    state: latest
