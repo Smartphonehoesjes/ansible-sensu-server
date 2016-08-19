@@ -14,3 +14,12 @@
     name: redis-server
     state: started
     enabled: yes
+
+- name: be sure apache2-graphite.conf is copied
+  copy:
+    src: /usr/share/graphite-web/apache2-graphite.conf
+    dest: /etc/apache2/sites-available
+
+- name: enable graphite virtualhost
+  command: a2ensite apache2-graphite
+  notify: restart apache
