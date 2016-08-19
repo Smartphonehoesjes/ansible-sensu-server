@@ -6,7 +6,7 @@
 
 - name: be sure {{ item }} is running and enabled
   service:
-    name: {{ item }}
+    name: "{{ item }}"
     state: started
     enabled: yes
   with_items:
