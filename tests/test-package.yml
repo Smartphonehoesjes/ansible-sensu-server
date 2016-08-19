@@ -5,4 +5,3 @@
     graphite_secret_key: DEFAULT
   roles:
     - role_under_test
-    - geerlingguy.git
