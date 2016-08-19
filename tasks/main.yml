@@ -72,7 +72,7 @@
 - name: be sure relay is copied
   copy:
     src: relay.conf
-    dest: {{ sensu_conf_d }}/relay.conf
+    dest: "{{ sensu_conf_d }}/relay.conf"
     owner: sensu
     group: sensu
     mode: 0400
