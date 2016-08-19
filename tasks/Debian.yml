@@ -5,6 +5,7 @@
   with_items:
     - graphite-web
     - graphite-carbon
+    - libapache2-mod-wsgi
     - rabbitmq-server
     - redis-server
     - uchiwa
@@ -21,6 +22,14 @@
     dest: /etc/apache2/sites-available
     remote_src: True
 
-- name: enable graphite virtualhost
+- name: be sure default virtualhost file is disabled
+  command: a2dissite 000-default
+  notify: restart apache
+
+- name: be sure graphite virtualhost is enabled
   command: a2ensite apache2-graphite
+  notify: restart apache
+
+- name: be graphite database is created
+  command: graphite-manage syncdb --noinput
   notify: restart apache
