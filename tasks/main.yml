@@ -4,16 +4,20 @@
 - include: Debian.yml
   when: ansible_os_family == 'Debian'
 
-
+- name: be sure {{ item }} is running and enabled
+  service:
+    name: {{ item }}
+    state: started
+    enabled: yes
+  with_items:
+    - carbon-cache
+    - rabbitmq-server
+    - sensu-api
+    - sensu-server
+    - uchiwa
 
 ####### begin - rabbitmq #######
 #TODO: [GH-57] replace with galaxy module
-- name: be sure rabbitmq-server is running and enabled
-  service:
-    name: rabbitmq-server
-    state: started
-    enabled: yes
-
 - name: get vhosts
   command: rabbitmqctl list_vhosts
   register: vhosts
@@ -41,26 +45,6 @@
   command: rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
   when: "'/sensu\t.*\t.*\t.*' not in permissions.stdout"
 ####### end - rabbitmq #######
-
-
-
-- name: be sure sensu-api is running and enabled
-  service:
-    name: sensu-api
-    state: started
-    enabled: yes
-
-- name: be sure sensu-server is running and enabled
-  service:
-    name: sensu-server
-    state: started
-    enabled: yes
-
-- name: be sure uchiwa is running and enabled
-  service:
-    name: uchiwa
-    state: started
-    enabled: yes
 
 - name: be sure uchiwa.json is copied
   template:
