@@ -30,6 +30,13 @@
   command: a2ensite apache2-graphite
   notify: restart apache
 
-- name: be graphite database is created
+- name: be sure graphite database is created
   command: graphite-manage syncdb --noinput
+  notify: restart apache
+
+- name: be sure right owner and group are assigned to graphite database
+  file:
+    path: /var/lib/graphite/graphite.db
+    owner: _graphite
+    group: _graphite
   notify: restart apache
