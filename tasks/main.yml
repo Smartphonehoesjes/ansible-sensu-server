@@ -60,6 +60,8 @@
     owner: sensu
     group: sensu
     mode: 0400
+  notify:
+    - restart sensu-server
 
 - name: be sure {{ item }} is copied
   copy:
