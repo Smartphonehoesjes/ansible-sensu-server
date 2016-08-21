@@ -54,6 +54,8 @@ script:
   #- 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm sudo systemctl status sensu-client.service -l'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/init.d'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep 80'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep 2003'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep 2004'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep 3000'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep 3030'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep 4567'
