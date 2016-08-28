@@ -2,12 +2,12 @@
 sudo: required
 
 env:
-#TODO: [GH-87] ubuntu build stalls
-#  - distribution: ubuntu
-#    version: 14.04
-#    init: /sbin/init
-#    run_opts: ""
-#    SITE: package
+  - distribution: ubuntu
+    version: 14.04
+    init: /sbin/init
+    run_opts: ""
+    SITE: package
+    DOCKER_VERSION: "1.9.1-0~trusty"
   - distribution: centos
     version: 7
     init: /usr/lib/systemd/systemd
@@ -23,7 +23,11 @@ services:
   - docker
 
 before_install:
-  # - sudo apt-get update
+  # Downgrade to older version of Docker engine.
+  - sudo apt-get update
+  - sudo apt-get remove docker-engine -yq
+  - sudo apt-get install docker-engine=$DOCKER_VERSION -yq --no-install-suggests --no-install-recommends --force-yes -o Dpkg::Options::="--force-confnew"
+ 
   # Pull container
   - 'sudo docker pull ${distribution}:${version}'
   # Customize container
