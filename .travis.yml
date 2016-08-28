@@ -13,6 +13,7 @@ env:
     init: /usr/lib/systemd/systemd
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     SITE: package
+    DOCKER_VERSION: "1.9.1-0~trusty"
 #  - distribution: ubuntu
 #    version: 16.04
 #    init: /usr/lib/systemd/systemd
