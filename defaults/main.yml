@@ -2,7 +2,7 @@ sensu_server_host: localhost
 sensu_server_home: /etc/sensu
 sensu_server_conf_d: "{{ sensu_home }}/conf.d"
 
-sensu_server_api:
+sensu_server_apis:
   hello: world
   host: localhost
 

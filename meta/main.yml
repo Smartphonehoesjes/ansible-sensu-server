@@ -1,19 +1,26 @@
 ---
 galaxy_info:
   author: 030
-  description: Installs latest sensu
+  description: Installs and configures latest sensu-server
   license: 'MIT'
   min_ansible_version: 2.1.0.0
   platforms:
-    - name: EL
-      versions:
-        - 7
-    - name: Ubuntu
-      versions:
-        - 14.04
+  - name: EL
+    versions:
+    - 6
+    - 7
+  - name: Ubuntu
+    versions:
+    - trusty
+    - xenial
   galaxy_tags:
-    - messagebroker
+    - monitoring
+    - sensu-server
 
 dependencies:
-  - { role: 030.sensu-install }
-  - { role: 030.sensu-client }
+  - role: 030.sensu-install
+    version: 0.1.0
+  - role: 030.sensu-client
+    version: 0.3.2
+  - role: geerlingguy.ntp
+    version: 1.3.0

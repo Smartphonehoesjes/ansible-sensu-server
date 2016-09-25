@@ -1,6 +1,6 @@
 {
   "checks": {
-{% for website in websites %}
+{% for website in sensu_server_websites %}
     "{{ website.name }}": {
       "command": "/etc/sensu/plugins/check-http.rb -u {{ website.url }} -q '{{ website.keyword }}'",
       "standalone": true,
