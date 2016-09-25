@@ -22,3 +22,5 @@ dependencies:
     version: 0.3.2
   - role: geerlingguy.ntp
     version: 1.3.0
+  - role: Stouts.rabbitmq
+    version: 1.2.1
