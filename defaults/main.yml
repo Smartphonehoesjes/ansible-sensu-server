@@ -1,12 +1,12 @@
-sensu_host: localhost
-sensu_home: /etc/sensu
-sensu_conf_d: "{{ sensu_home }}/conf.d"
+sensu_server_host: localhost
+sensu_server_home: /etc/sensu
+sensu_server_conf_d: "{{ sensu_home }}/conf.d"
 
-clients:
+sensu_server_api:
   hello: world
   host: localhost
 
-uchiwa_users:
+sensu_server_uchiwa_users:
   - name: helloadmin
     password: pw
     accessToken: ""
