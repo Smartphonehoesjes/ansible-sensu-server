@@ -10,9 +10,7 @@
       "user": "",
       "pass": "",
       "timeout": 10
-    }
-{% if not loop.last %}
-,
+    }{% if not loop.last %},
 {% endif %}
 {% endfor %}
   ],
@@ -29,9 +27,7 @@
 {% filter lower %}
         "readonly": {{ user.readonly }}
 {% endfilter %}
-      }
-{% if not loop.last %}
-,
+      }{% if not loop.last %},
 {% endif %}
 {% endfor %}
     ]
