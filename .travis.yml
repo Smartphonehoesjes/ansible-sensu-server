@@ -53,6 +53,7 @@ script:
     || (echo 'Idempotence test: fail' && exit 1)
 
   # Ensure services are running by checking the ports.
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /var/log/rabbitmq'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "30\(00\|30\)"'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/init.d'
