@@ -1,6 +1,6 @@
 {
   "sensu": [
-{% for key, value in clients.iteritems() %}
+{% for key, value in sensu_server_apis.iteritems() %}
     {
       "name": "{{ key }}",
       "host": "{{ value }}",
@@ -21,7 +21,7 @@
     "port": 3000,
     "refresh": 10,
     "users": [
-{% for user in uchiwa_users %}
+{% for user in sensu_server_uchiwa_users %}
       {
         "username": "{{ user.name }}",
         "password": "{{ user.password }}",
@@ -36,4 +36,4 @@
 {% endfor %}
     ]
   }
-}
+

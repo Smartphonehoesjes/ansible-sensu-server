@@ -65,6 +65,6 @@
 - name: be sure uchiwa.json is copied
   template:
     src: uchiwa.j2
-    dest: "{{ sensu_home }}/uchiwa.json"
+    dest: "{{ sensu_server_home }}/uchiwa.json"
   notify:
     - restart uchiwa

@@ -16,9 +16,7 @@ Role Variables
 * apis
 
 ```
-TODO: [GH-62] clients should be apis
-
-clients:
+sensu_server_apis:
   hello: world
   host: localhost
 ```
@@ -26,7 +24,7 @@ clients:
 * create uchiwa users
 
 ```
-uchiwa_users:
+sensu_server_uchiwa_users:
   - name: helloadmin
     password: pw
     accessToken: ""
@@ -40,7 +38,7 @@ uchiwa_users:
 * sensu host
 
 ```
-sensu_host: localhost
+sensu_server_host: localhost
 ```
 
 Dependencies
@@ -48,6 +46,7 @@ Dependencies
 
 * 030.sensu-install
 * 030.sensu-client
+* geerlingguy.ntp
 
 Example Playbook
 ----------------
