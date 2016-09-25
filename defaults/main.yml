@@ -7,7 +7,7 @@ rabbitmq_users:
     write_priv: .*
     tags: sensu
 
-rabbitmq_vhosts: [sensu] 
+rabbitmq_vhosts: [/sensu] 
 
 sensu_server_host: localhost
 sensu_server_home: /etc/sensu
