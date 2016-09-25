@@ -10,11 +10,10 @@
       "user": "",
       "pass": "",
       "timeout": 10
-    }
-{% if not loop.last %}
-,
+    }{% if not loop.last %},
 {% endif %}
 {% endfor %}
+
   ],
   "uchiwa": {
     "host": "0.0.0.0",
@@ -29,11 +28,10 @@
 {% filter lower %}
         "readonly": {{ user.readonly }}
 {% endfilter %}
-      }
-{% if not loop.last %}
-,
+      }{% if not loop.last %},
 {% endif %}
 {% endfor %}
+
     ]
   }
 
