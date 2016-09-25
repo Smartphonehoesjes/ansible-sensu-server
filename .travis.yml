@@ -55,13 +55,9 @@ script:
   # Ensure services are running by checking the ports.
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /var/log/rabbitmq'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/rabbitmq.json'
-  # print uchiwa config
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/uchiwa.json'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat'
   # Ensure sensu-client is listening
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "3030"'
-  # Ensure uchiwa is listening
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "3000\)"'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/init.d'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm /opt/sensu/embedded/bin/gem list --local'
   
