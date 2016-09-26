@@ -1,3 +1,14 @@
+rabbitmq_users:
+  - user: sensu
+    password: "{{ vault_sensu_server_rabbitmq_users_sensu_password }}"
+    vhost: /sensu
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    tags: sensu
+
+rabbitmq_vhosts: [/sensu] 
+
 sensu_server_host: localhost
 sensu_server_home: /etc/sensu
 sensu_server_conf_d: "{{ sensu_home }}/conf.d"
