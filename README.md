@@ -59,17 +59,6 @@ Example Playbook
     - { role: 030.sensu-server }
 ```
 
-* secure uchiwa
-
-```
-- hosts: servers
-  vars:
-    sensu_server_uchiwa_ssl: true
-    sensu_server_uchiwa_port: 8443
-  roles:
-    - { role: 030.sensu-server }
-```
-
 License
 -------
 

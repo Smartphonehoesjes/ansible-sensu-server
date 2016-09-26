@@ -69,7 +69,6 @@ script:
   
   #test websites conf
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/uchiwa.json'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/uchiwa.json | grep "port.*2345"'
   #test plugins
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /opt/sensu/embedded/bin | grep "cpu\|http"'
 
