@@ -16,7 +16,7 @@
 
   ],
   "uchiwa": {
-{% if sensu_server_uchiwa_ssl is defined %}
+{% if sensu_server_uchiwa_ssl %}
     "ssl": {
       "certfile": "{{ sensu_server_ssl }}/uchiwa-cert.pem",
       "keyfile": "{{ sensu_server_ssl }}/uchiwa-privkey.pem"
