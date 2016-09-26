@@ -16,6 +16,12 @@
 
   ],
   "uchiwa": {
+{% if sensu_server_uchiwa_ssl is defined %}
+    "ssl": {
+      "certfile": "{{ sensu_server_ssl }}/uchiwa-cert.pem",
+      "keyfile": "{{ sensu_server_ssl }}/uchiwa-privkey.pem"
+    },
+{% endif %}
     "host": "0.0.0.0",
     "port": 3000,
     "refresh": 10,
