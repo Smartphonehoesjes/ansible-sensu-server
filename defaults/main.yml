@@ -1,3 +1,7 @@
+firewall_allowed_ports:
+  - "{{ rabbitmq_port }}"
+  - "{{ sensu_server_uchiwa_port }}"
+
 rabbitmq_port: 5672
 
 rabbitmq_users:
@@ -10,11 +14,6 @@ rabbitmq_users:
     tags: sensu
 
 rabbitmq_vhosts: [/sensu] 
-
-sensu_server_allowed_ports:
-  - 22
-  - "{{ rabbitmq_port }}"
-  - "{{ sensu_server_uchiwa_port }}"
 
 sensu_server_host: localhost
 sensu_server_home: /etc/sensu

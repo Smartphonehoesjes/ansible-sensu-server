@@ -16,6 +16,8 @@ galaxy_info:
     - sensu-server
 
 dependencies:
+  - role: 030.firewall
+    version: 0.1.0
   - role: 030.sensu-client
     version: 0.3.5
   - role: geerlingguy.ntp
