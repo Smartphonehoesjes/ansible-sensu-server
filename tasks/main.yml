@@ -23,6 +23,6 @@
 
 - name: ssl directory created
   file:
-    path: "{{ sensu_server_home }}/ssl"
+    path: "{{ sensu_server_ssl }}"
     state: directory
   when: uchiwa_ssl is defined
