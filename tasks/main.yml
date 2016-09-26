@@ -4,27 +4,25 @@
 - include: Debian.yml
   when: ansible_os_family == 'Debian'
 
-- name: be sure sensu-api is running and enabled
+- name: "{{ item }} is running and enabled"
   service:
-    name: sensu-api
+    name: "{{ item }}"
     state: started
-    enabled: yes
+    enabled: true
+  with_items:
+    - sensu-api
+    - sensu-server
+    - uchiwa
 
-- name: be sure sensu-server is running and enabled
-  service:
-    name: sensu-server
-    state: started
-    enabled: yes
-
-- name: be sure uchiwa is running and enabled
-  service:
-    name: uchiwa
-    state: started
-    enabled: yes
-
-- name: be sure uchiwa.json is copied
+- name: uchiwa.json is copied
   template:
     src: uchiwa.j2
     dest: "{{ sensu_server_home }}/uchiwa.json"
   notify:
     - restart uchiwa
+
+- name: ssl directory created
+  file:
+    path: "{{ sensu_server_ssl }}"
+    state: directory
+  when: uchiwa_ssl is defined

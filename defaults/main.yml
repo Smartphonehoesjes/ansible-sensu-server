@@ -11,18 +11,22 @@ rabbitmq_vhosts: [/sensu]
 
 sensu_server_host: localhost
 sensu_server_home: /etc/sensu
-sensu_server_conf_d: "{{ sensu_home }}/conf.d"
+sensu_server_conf_d: "{{ sensu_server_home }}/conf.d"
+sensu_server_ssl: "{{ sensu_server_home }}/ssl"
+sensu_server_uchiwa_port: 3000
 
 sensu_server_apis:
   hello: world
   host: localhost
 
+sensu_server_uchiwa_ssl: true
+
 sensu_server_uchiwa_users:
-  - name: helloadmin
-    password: pw
+  - name: admin
+    password: "{{ vault_sensu_server_uchiwa_users_admin_password }}"
     accessToken: ""
     readonly: false
-  - name: helloguest
-    password: pw2
+  - name: guest
+    password: "{{ vault_sensu_server_uchiwa_users_guest_password }}"
     accessToken: ""
     readonly: true
