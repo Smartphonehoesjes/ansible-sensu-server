@@ -22,5 +22,7 @@ dependencies:
     version: 0.3.3
   - role: geerlingguy.ntp
     version: 1.3.0
+  - role: geerlingguy.redis
+    version: 1.4.1
   - role: Stouts.rabbitmq
     version: 1.2.1
