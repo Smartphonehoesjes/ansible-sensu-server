@@ -11,6 +11,11 @@ rabbitmq_users:
 
 rabbitmq_vhosts: [/sensu] 
 
+sensu_server_allowed_ports:
+  - 22
+  - "{{ rabbitmq_port }}"
+  - "{{ sensu_server_uchiwa_port }}"
+
 sensu_server_host: localhost
 sensu_server_home: /etc/sensu
 sensu_server_conf_d: "{{ sensu_server_home }}/conf.d"
@@ -32,8 +37,3 @@ sensu_server_uchiwa_users:
     password: "{{ vault_sensu_server_uchiwa_users_guest_password }}"
     accessToken: ""
     readonly: true
-
-ufw_rules:
-  - { port: 22, rule: allow }
-  - { port: "{{ rabbitmq_port }}", rule: allow }
-  - { port: "{{ sensu_server_uchiwa_port }}", rule: allow }

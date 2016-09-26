@@ -2,3 +2,15 @@
   apt:
     name: uchiwa
     state: latest
+
+- name: port {{ item }} allowed in firewall
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items: "{{ sensu_server_allowed_ports }}"
+
+- name: enable firewall
+  ufw:
+    state: enabled
+    policy: deny
