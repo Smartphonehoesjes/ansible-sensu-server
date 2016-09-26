@@ -72,6 +72,9 @@ script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/uchiwa.json | grep "port.*2345"'
   #test plugins
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /opt/sensu/embedded/bin | grep "cpu\|http"'
+  #test uchiwa
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /var/log/uchiwa.log'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "LISTEN.*:::2345"'
 
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
