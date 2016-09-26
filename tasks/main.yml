@@ -4,7 +4,7 @@
 - include: Debian.yml
   when: ansible_os_family == 'Debian'
 
-- name: {{ item }} is running and enabled
+- name: "{{ item }} is running and enabled"
   service:
     name: "{{ item }}"
     state: started
