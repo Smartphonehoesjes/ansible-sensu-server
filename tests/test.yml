@@ -2,8 +2,6 @@
 - hosts: localhost
 
   vars:
-    firewall_allowed_ports:
-      - "{{ sensu_server_uchiwa_port }}"
     ntp_enabled: false
     ntp_manage_config: true
     rabbitmq_users:
