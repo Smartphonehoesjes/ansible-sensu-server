@@ -57,13 +57,13 @@ script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/rabbitmq.json'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat'
   # Ensure sensu-client is listening
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "3030"'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "127.0.0.1:3030"'
   # Ensure sensu-api is listening
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "4567"'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "*:4567"'
   # Ensure redis is listening
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "6379"'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "127.0.0.1:6379"'
   # Ensure rabbitmq is listening
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "5672"'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep ":::5672"'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/init.d'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm /opt/sensu/embedded/bin/gem list --local'
   
