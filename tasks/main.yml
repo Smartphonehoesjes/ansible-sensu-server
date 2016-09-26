@@ -28,8 +28,8 @@
   notify:
     - restart sensu-server
 
-- name: handler_mailer.json
-  file:
+- name: handler_mailer.json is copied
+  copy:
     src: handler_mailer.json
     dest: "{{ sensu_server_conf_d }}/handler_mailer.json"
   notify:

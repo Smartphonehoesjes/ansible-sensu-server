@@ -57,7 +57,7 @@ script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/rabbitmq.json'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat'
   # Ensure postfix is listening
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "LISTEN.*:25"'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "LISTEN.*127.0.0.1:25"'
   # Ensure sensu-client is listening
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "LISTEN.*127.0.0.1:3030"'
   # Ensure sensu-api is listening
