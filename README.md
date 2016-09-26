@@ -47,6 +47,7 @@ Dependencies
 * 030.sensu-install
 * 030.sensu-client
 * geerlingguy.ntp
+* geerlingguy.redis
 * Stouts.rabbitmq
 
 Example Playbook
