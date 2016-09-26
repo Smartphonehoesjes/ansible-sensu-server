@@ -1,3 +1,5 @@
+rabbitmq_port: 5672
+
 rabbitmq_users:
   - user: sensu
     password: "{{ vault_sensu_server_rabbitmq_users_sensu_password }}"
@@ -30,3 +32,8 @@ sensu_server_uchiwa_users:
     password: "{{ vault_sensu_server_uchiwa_users_guest_password }}"
     accessToken: ""
     readonly: true
+
+ufw_rules:
+  - { port: 22, rule: allow }
+  - { port: "{{ rabbitmq_port }}", rule: allow }
+  - { port: "{{ sensu_server_uchiwa_port }}", rule: allow }
