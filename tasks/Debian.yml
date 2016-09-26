@@ -1,7 +1,10 @@
-- name: be sure uchiwa is installed
+- name: be sure {{ item }} is installed
   apt:
-    name: uchiwa
+    name: "{{ item }}"
     state: latest
+  with_items:
+    - uchiwa
+    - ufw
 
 - name: port {{ item }} allowed in firewall
   ufw:
