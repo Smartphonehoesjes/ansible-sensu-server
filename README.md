@@ -46,7 +46,6 @@ Dependencies
 
 * 030.sensu-install
 * 030.sensu-client
-* franklinkim.ufw
 * geerlingguy.ntp
 * geerlingguy.redis
 * Stouts.rabbitmq
