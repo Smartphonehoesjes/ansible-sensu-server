@@ -2,7 +2,7 @@
   "handlers": {
     "mailer": {
       "type": "pipe",
-      "command": "mailer.rb"
+      "command": "handler-mailer.rb"
     }
   }
 }
