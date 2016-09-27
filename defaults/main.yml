@@ -15,10 +15,6 @@ rabbitmq_users:
 
 rabbitmq_vhosts: [/sensu] 
 
-sensu_plugin_install:
-  - name: mailer
-    version: 1.0.0
-
 sensu_server_host: localhost
 sensu_server_home: /etc/sensu
 sensu_server_conf_d: "{{ sensu_server_home }}/conf.d"
