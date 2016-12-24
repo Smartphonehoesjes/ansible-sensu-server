@@ -10,7 +10,6 @@
     state: started
     enabled: true
   with_items:
-    - carbon-cache
     - sensu-api
     - sensu-server
     - uchiwa
