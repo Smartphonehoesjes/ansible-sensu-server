@@ -68,10 +68,7 @@ script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "LISTEN.*:::5672"'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/init.d'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm /opt/sensu/embedded/bin/gem list --local'
-  # test carbon
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep 2003'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep 2004'
-
+  
   #test websites conf
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/uchiwa.json'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/uchiwa.json | grep "port.*2345"'
