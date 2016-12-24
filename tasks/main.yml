@@ -10,6 +10,7 @@
     state: started
     enabled: true
   with_items:
+    - carbon-cache
     - sensu-api
     - sensu-server
     - uchiwa
@@ -20,6 +21,22 @@
     dest: "{{ sensu_server_home }}/uchiwa.json"
   notify:
     - restart uchiwa
+
+- name: be sure relay is copied
+  copy:
+    src: relay.conf
+    dest: "{{ sensu_conf_d }}/relay.conf"
+    owner: sensu
+    group: sensu
+    mode: 0400
+
+- name: be sure {{ item }} is copied
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/carbon/{{ item }}"
+  with_items:
+    - storage-aggregation.conf
+    - storage-schemas.conf
 
 - name: mailer.json is copied
   template:
