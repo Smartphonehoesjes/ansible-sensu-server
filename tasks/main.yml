@@ -22,6 +22,22 @@
   notify:
     - restart uchiwa
 
+- name: be sure relay is copied
+  copy:
+    src: relay.json
+    dest: "{{ sensu_conf_d }}/relay.json"
+    owner: sensu
+    group: sensu
+    mode: 0400
+
+- name: be sure {{ item }} is copied
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/carbon/{{ item }}"
+  with_items:
+    - storage-aggregation.conf
+    - storage-schemas.conf
+
 - name: mailer.json is copied
   template:
     src: mailer.j2
