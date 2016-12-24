@@ -4,69 +4,39 @@
 - include: Debian.yml
   when: ansible_os_family == 'Debian'
 
-- name: be sure {{ item }} is running and enabled
+- name: "{{ item }} is running and enabled"
   service:
     name: "{{ item }}"
     state: started
-    enabled: yes
+    enabled: true
   with_items:
-    - carbon-cache
-    - rabbitmq-server
     - sensu-api
     - sensu-server
     - uchiwa
 
-####### begin - rabbitmq #######
-#TODO: [GH-57] replace with galaxy module
-- name: get vhosts
-  command: rabbitmqctl list_vhosts
-  register: vhosts
-  changed_when: false
-
-- name: add vhost sensu
-  command: rabbitmqctl add_vhost /sensu
-  when: "'/sensu' not in vhosts.stdout" #http://serverfault.com/a/792721/215599
-
-- name: get users
-  command: rabbitmqctl list_users
-  register: users
-  changed_when: false
-
-- name: add user sensu
-  command: rabbitmqctl add_user sensu secret
-  when: "'sensu' not in users.stdout"
-
-- name: get permissions
-  command: rabbitmqctl list_user_permissions sensu
-  register: permissions
-  changed_when: false
-
-- name: set permissions sensu
-  command: rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
-  when: "'/sensu\t.*\t.*\t.*' not in permissions.stdout"
-####### end - rabbitmq #######
-
-- name: be sure uchiwa.json is copied
+- name: uchiwa.json is copied
   template:
     src: uchiwa.j2
-    dest: "{{ sensu_home }}/uchiwa.json"
+    dest: "{{ sensu_server_home }}/uchiwa.json"
   notify:
     - restart uchiwa
 
-- name: be sure relay is copied
-  copy:
-    src: relay.json
-    dest: "{{ sensu_conf_d }}/relay.json"
-    owner: sensu
-    group: sensu
-    mode: 0400
+- name: mailer.json is copied
+  template:
+    src: mailer.j2
+    dest: "{{ sensu_server_conf_d }}/mailer.json"
   notify:
     - restart sensu-server
 
-- name: be sure {{ item }} is copied
+- name: handler_mailer.json is copied
   copy:
-    src: "{{ item }}"
-    dest: "/etc/carbon/{{ item }}"
-  with_items:
-    - storage-aggregation.conf
-    - storage-schemas.conf
+    src: handler_mailer.json
+    dest: "{{ sensu_server_conf_d }}/handler_mailer.json"
+  notify:
+    - restart sensu-server
+
+- name: ssl directory created
+  file:
+    path: "{{ sensu_server_ssl }}"
+    state: directory
+  when: uchiwa_ssl is defined

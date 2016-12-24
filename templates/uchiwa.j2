@@ -1,6 +1,6 @@
 {
   "sensu": [
-{% for key, value in clients.iteritems() %}
+{% for key, value in sensu_server_apis.iteritems() %}
     {
       "name": "{{ key }}",
       "host": "{{ value }}",
@@ -10,18 +10,23 @@
       "user": "",
       "pass": "",
       "timeout": 10
-    }
-{% if not loop.last %}
-,
+    }{% if not loop.last %},
 {% endif %}
 {% endfor %}
+
   ],
   "uchiwa": {
+{% if sensu_server_uchiwa_ssl %}
+    "ssl": {
+      "certfile": "{{ sensu_server_ssl }}/uchiwa-cert.pem",
+      "keyfile": "{{ sensu_server_ssl }}/uchiwa-privkey.pem"
+    },
+{% endif %}
     "host": "0.0.0.0",
-    "port": 3000,
+    "port": {{ sensu_server_uchiwa_port }},
     "refresh": 10,
     "users": [
-{% for user in uchiwa_users %}
+{% for user in sensu_server_uchiwa_users %}
       {
         "username": "{{ user.name }}",
         "password": "{{ user.password }}",
@@ -29,11 +34,10 @@
 {% filter lower %}
         "readonly": {{ user.readonly }}
 {% endfilter %}
-      }
-{% if not loop.last %}
-,
+      }{% if not loop.last %},
 {% endif %}
 {% endfor %}
+
     ]
   }
 }

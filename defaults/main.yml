@@ -1,17 +1,43 @@
-sensu_host: localhost
-sensu_home: /etc/sensu
-sensu_conf_d: "{{ sensu_home }}/conf.d"
+firewall_allowed_ports:
+  - "{{ rabbitmq_port }}"
+  - "{{ sensu_server_uchiwa_port }}"
 
-clients:
+rabbitmq_port: 5672
+
+rabbitmq_users:
+  - user: sensu
+    password: "{{ vault_sensu_server_rabbitmq_users_sensu_password }}"
+    vhost: /sensu
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    tags: sensu
+
+rabbitmq_vhosts: [/sensu] 
+
+sensu_plugin_install:
+  - name: mailer
+    version: 1.0.0
+
+sensu_server_host: localhost
+sensu_server_home: /etc/sensu
+sensu_server_conf_d: "{{ sensu_server_home }}/conf.d"
+sensu_server_mail_to: user@example.com
+sensu_server_ssl: "{{ sensu_server_home }}/ssl"
+sensu_server_uchiwa_port: 3000
+
+sensu_server_apis:
   hello: world
   host: localhost
 
-uchiwa_users:
-  - name: helloadmin
-    password: pw
+sensu_server_uchiwa_ssl: true
+
+sensu_server_uchiwa_users:
+  - name: admin
+    password: "{{ vault_sensu_server_uchiwa_users_admin_password }}"
     accessToken: ""
     readonly: false
-  - name: helloguest
-    password: pw2
+  - name: guest
+    password: "{{ vault_sensu_server_uchiwa_users_guest_password }}"
     accessToken: ""
     readonly: true
