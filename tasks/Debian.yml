@@ -15,9 +15,15 @@
     dest: /etc/apache2/sites-available
     remote_src: True
 
-- name: be sure graphite database is created
+- name: get graphitedb status
+  command: graphite-manage syncdb --noinput
+  register: graphitedb
+  changed_when: false
+
+- name: create graphite db
   command: graphite-manage syncdb --noinput
   notify: restart apache
+  when: "'No migrations to apply' not in graphitedb.stdout"
 
 - name: be sure right owner and group are assigned to graphite database
   file:
