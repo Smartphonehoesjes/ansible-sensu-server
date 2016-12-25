@@ -1,5 +1,6 @@
-- include: RedHat.yml
-  when: ansible_os_family == 'RedHat'
+#TODO - GH-125
+#- include: RedHat.yml
+#  when: ansible_os_family == 'RedHat'
 
 - include: Debian.yml
   when: ansible_os_family == 'Debian'
@@ -32,12 +33,15 @@
     - storage-aggregation.conf
     - storage-schemas.conf
 
-- name: mailer.json is copied
+- name: mailer config is copied
   template:
-    src: mailer.j2
-    dest: "{{ sensu_server_conf_d }}/mailer.json"
+    src: "{{ item }}.j2"
+    dest: "{{ sensu_server_conf_d }}/{{ item }}.json"
   notify:
     - restart sensu-server
+  with_items:
+    - mailer
+    - handler_mailer
 
 - name: handler_mailer.json is copied
   copy:
@@ -46,8 +50,8 @@
   notify:
     - restart sensu-server
 
-- name: ssl directory created
-  file:
-    path: "{{ sensu_server_ssl }}"
-    state: directory
-  when: uchiwa_ssl is defined
+#- name: ssl directory created
+#  file:
+#    path: "{{ sensu_server_ssl }}"
+#    state: directory
+#  when: uchiwa_ssl is defined
