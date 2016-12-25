@@ -12,5 +12,5 @@
 - name: copy wizardvan extensions
   copy:
     src: extensions
-    dest: /etc/sensu/extensions
+    dest: /etc/sensu/
     directory_mode: yes
