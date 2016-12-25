@@ -1,0 +1,29 @@
+<VirtualHost *:80>
+
+        WSGIDaemonProcess _graphite processes=5 threads=5 display-name='%{GROUP}' inactivity-timeout=120 user=_graphite group=_graphite
+        WSGIProcessGroup _graphite
+        WSGIImportScript /usr/share/graphite-web/graphite.wsgi process-group=_graphite application-group=%{GLOBAL}
+        WSGIScriptAlias / /usr/share/graphite-web/graphite.wsgi
+
+        Alias /content/ /usr/share/graphite-web/static/
+        <Location "/content/">
+                SetHandler None
+        </Location>
+
+        ErrorLog ${APACHE_LOG_DIR}/graphite-web_error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel warn
+
+        CustomLog ${APACHE_LOG_DIR}/graphite-web_access.log combined
+
+<Location "/">
+    AuthType Basic
+    AuthName "Under Construction"
+    AuthUserFile /etc/graphite/sec/.mypasswds
+    AuthGroupFile /etc/graphite/sec/.mygroups
+    Require group managers
+</Location>
+
+</VirtualHost>

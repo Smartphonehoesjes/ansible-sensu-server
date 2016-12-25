@@ -9,11 +9,11 @@
     - rabbitmq-server
     - uchiwa
 
-- name: be sure apache2-graphite.conf is copied
-  copy:
-    src: /usr/share/graphite-web/apache2-graphite.conf
-    dest: /etc/apache2/sites-available
-    remote_src: True
+- name: apache2-graphite.conf is copied
+  template:
+    src: apache2-graphite.conf.js
+    dest: /etc/apache2/sites-available/apache2-graphite.conf
+  notify: restart apache
 
 - name: get graphitedb status
   command: graphite-manage syncdb --noinput
