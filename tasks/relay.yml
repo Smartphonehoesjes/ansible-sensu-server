@@ -10,10 +10,10 @@
     - restart sensu-server
 
 - name: clone wizardvan
-   git:
-     repo: https://github.com/opower/sensu-metrics-relay.git
-     dest: /tmp/sensu-metrics-relay
-     update: yes
+  git:
+    repo: https://github.com/opower/sensu-metrics-relay.git
+    dest: /tmp/sensu-metrics-relay
+    update: yes
 
 - name: copy wizardvan extensions
   copy:
