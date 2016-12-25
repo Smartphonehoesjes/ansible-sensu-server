@@ -16,6 +16,16 @@
     dest: /etc/apache2/sites-available/apache2-graphite.conf
   notify: restart apache
 
+- name: get apache2-graphite activation status
+  command: a2ensite apache2-graphite
+  register: apache2-graphite-activation-status
+  changed_when: false
+
+- name: activate apache2-graphite
+  command: a2ensite apache2-graphite
+  notify: restart apache
+  when: "'Site apache2-graphite already enabled' not in apache2-graphite-activation-status.stdout"
+
 - name: password file
   htpasswd:
     path: "{{ sensu_server_graphite_home }}/.passwd"

@@ -21,7 +21,8 @@
     AuthType Basic
     AuthName "Under Construction"
     AuthUserFile "{{ sensu_server_graphite_home }}/.passwd"
+    Require user "{{ sensu_server_graphite_name }}"
     #AuthGroupFile /etc/graphite/sec/.mygroups
-    Require group managers
+    #Require group managers
   </Location>
 </VirtualHost>
