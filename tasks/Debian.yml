@@ -10,21 +10,21 @@
     - rabbitmq-server
     - uchiwa
 
-- name: apache2-graphite.conf is copied
+- name: apache2 graphite.conf is copied
   template:
     src: apache2-graphite.conf.j2
     dest: /etc/apache2/sites-available/apache2-graphite.conf
   notify: restart apache
 
-- name: get apache2-graphite activation status
+- name: get apache2 graphite activation status
   command: a2ensite apache2-graphite
-  register: apache2-graphite-activation-status
+  register: apache2_graphite_activation_status
   changed_when: false
 
 - name: activate apache2-graphite
   command: a2ensite apache2-graphite
   notify: restart apache
-  when: "'Site apache2-graphite already enabled' not in apache2-graphite-activation-status.stdout"
+  when: "'Site apache2-graphite already enabled' not in apache2_graphite_activation_status.stdout"
 
 - name: password file
   htpasswd:
