@@ -25,7 +25,7 @@
 - name: be sure relay is copied
   copy:
     src: relay.json
-    dest: "{{ sensu_conf_d }}/relay.json"
+    dest: "{{ sensu_server_conf_d }}/relay.json"
     owner: sensu
     group: sensu
     mode: 0400
