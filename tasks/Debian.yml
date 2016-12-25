@@ -15,6 +15,15 @@
     dest: /etc/apache2/sites-available/apache2-graphite.conf
   notify: restart apache
 
+- name: password file
+  htpasswd:
+    path: "{{ sensu_server_graphite_home }}/.passwd"
+    name: "{{ sensu_server_graphite_name }}"
+    password: "{{ vault_sensu_server_graphite_password }}"
+    owner: root
+    group: www-data
+    mode: 0640
+
 - name: get graphitedb status
   command: graphite-manage syncdb --noinput
   register: graphitedb
