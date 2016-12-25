@@ -1,26 +1,25 @@
 ---
 galaxy_info:
   author: 030
-  description: Installs and configures latest sensu-server
+  description: Installs and configures latest sensu-server, graphite and uchiwa
   license: 'MIT'
   min_ansible_version: 2.1.0.0
   platforms:
-  - name: EL
-    versions:
-    - 7
   - name: Ubuntu
     versions:
     - xenial
   galaxy_tags:
+    - graphite
     - monitoring
     - sensu
+    - uchiwa
 
 dependencies:
   - src: 030.firewall
     version: 0.1.2
     name: 030.firewall
   - src: 030.sensu-client
-    version: 0.5.1
+    version: 0.5.2
     name: 030.sensu-client
   - src: geerlingguy.apache
     version: 2.0.0
