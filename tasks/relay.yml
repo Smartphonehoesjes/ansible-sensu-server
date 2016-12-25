@@ -1,0 +1,22 @@
+---
+- name: be sure relay is copied
+  copy:
+    src: relay.json
+    dest: "{{ sensu_server_conf_d }}/relay.json"
+    owner: sensu
+    group: sensu
+    mode: 0400
+  notify:
+    - restart sensu-server
+
+- name: clone wizardvan
+   git:
+     repo: https://github.com/opower/sensu-metrics-relay.git
+     dest: /tmp/sensu-metrics-relay
+     update: yes
+
+- name: copy wizardvan extensions
+  copy:
+    src: /tmp/sensu-metrics-relay/lib/sensu/extensions
+    dest: /etc/sensu/extensions
+    remote_src: True

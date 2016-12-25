@@ -4,6 +4,8 @@
 - include: Debian.yml
   when: ansible_os_family == 'Debian'
 
+- include: relay.yml
+
 - name: "{{ item }} is running and enabled"
   service:
     name: "{{ item }}"
@@ -21,16 +23,6 @@
     dest: "{{ sensu_server_home }}/uchiwa.json"
   notify:
     - restart uchiwa
-
-- name: be sure relay is copied
-  copy:
-    src: relay.json
-    dest: "{{ sensu_server_conf_d }}/relay.json"
-    owner: sensu
-    group: sensu
-    mode: 0400
-  notify:
-    - restart sensu-server
 
 - name: be sure {{ item }} is copied
   copy:
