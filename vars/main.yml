@@ -1,2 +1,2 @@
 ---
-# vars file for ansible-sensu
+apache_remove_default_vhost: true

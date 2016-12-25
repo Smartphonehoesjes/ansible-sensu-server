@@ -15,14 +15,6 @@
     dest: /etc/apache2/sites-available
     remote_src: True
 
-- name: be sure default virtualhost file is disabled
-  command: a2dissite 000-default
-  notify: restart apache
-
-- name: be sure graphite virtualhost is enabled
-  command: a2ensite apache2-graphite
-  notify: restart apache
-
 - name: be sure graphite database is created
   command: graphite-manage syncdb --noinput
   notify: restart apache
