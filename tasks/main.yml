@@ -35,13 +35,10 @@
 
 - name: mailer config is copied
   template:
-    src: "{{ item }}.j2"
-    dest: "{{ sensu_server_conf_d }}/{{ item }}.json"
+    src: "mailer.j2"
+    dest: "{{ sensu_server_conf_d }}/mailer.json"
   notify:
     - restart sensu-server
-  with_items:
-    - mailer
-    - handler_mailer
 
 - name: handler_mailer.json is copied
   copy:
