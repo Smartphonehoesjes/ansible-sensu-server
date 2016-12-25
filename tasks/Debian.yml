@@ -6,6 +6,7 @@
     - graphite-web
     - graphite-carbon
     - libapache2-mod-wsgi
+    - python-passlib #fix 'This module requires the passlib Python library'
     - rabbitmq-server
     - uchiwa
 
