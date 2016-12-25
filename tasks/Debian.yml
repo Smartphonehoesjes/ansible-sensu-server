@@ -12,7 +12,7 @@
 
 - name: apache2-graphite.conf is copied
   template:
-    src: apache2-graphite.conf.js
+    src: apache2-graphite.conf.j2
     dest: /etc/apache2/sites-available/apache2-graphite.conf
   notify: restart apache
 
