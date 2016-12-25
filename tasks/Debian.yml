@@ -1,4 +1,53 @@
-- name: uchiwa is installed
+- name: "install apt packages"
   apt:
-    name: uchiwa
+    name: "{{ item }}"
     state: latest
+  with_items:
+    - graphite-web
+    - graphite-carbon
+    - libapache2-mod-wsgi
+    - python-passlib #fix 'This module requires the passlib Python library'
+    - rabbitmq-server
+    - uchiwa
+
+- name: apache2 graphite.conf is copied
+  template:
+    src: apache2-graphite.conf.j2
+    dest: /etc/apache2/sites-available/apache2-graphite.conf
+  notify: restart apache
+
+- name: get apache2 graphite activation status
+  command: a2ensite apache2-graphite
+  register: apache2_graphite_activation_status
+  changed_when: false
+
+- name: activate apache2-graphite
+  command: a2ensite apache2-graphite
+  notify: restart apache
+  when: "'Site apache2-graphite already enabled' not in apache2_graphite_activation_status.stdout"
+
+- name: password file
+  htpasswd:
+    path: "{{ sensu_server_graphite_home }}/.passwd"
+    name: "{{ sensu_server_graphite_name }}"
+    password: "{{ vault_sensu_server_graphite_password }}"
+    owner: root
+    group: www-data
+    mode: 0640
+
+- name: get graphitedb status
+  command: graphite-manage syncdb --noinput
+  register: graphitedb
+  changed_when: false
+
+- name: create graphite db
+  command: graphite-manage syncdb --noinput
+  notify: restart apache
+  when: "'No migrations to apply' not in graphitedb.stdout"
+
+- name: be sure right owner and group are assigned to graphite database
+  file:
+    path: /var/lib/graphite/graphite.db
+    owner: _graphite
+    group: _graphite
+  notify: restart apache

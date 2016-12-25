@@ -1,6 +1,12 @@
 ---
 - hosts: localhost
 
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=yes cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
   vars:
     ntp_enabled: false
     ntp_manage_config: true
@@ -18,6 +24,7 @@
     vault_sensu_server_rabbitmq_users_sensu_password: rabbitmq_password
     vault_sensu_server_uchiwa_users_admin_password: admin_password
     vault_sensu_server_uchiwa_users_guest_password: guest_password
+    vault_sensu_server_graphite_password: graphite_password
 
   roles:
     - role_under_test

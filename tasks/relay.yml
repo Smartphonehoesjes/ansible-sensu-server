@@ -1,0 +1,15 @@
+---
+- name: be sure relay is copied
+  copy:
+    src: relay.json
+    dest: "{{ sensu_server_conf_d }}/relay.json"
+    owner: sensu
+    group: sensu
+    mode: 0400
+  notify:
+    - restart sensu-server
+
+- name: copy wizardvan extensions
+  copy:
+    src: extensions
+    dest: /etc/sensu/

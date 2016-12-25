@@ -41,3 +41,6 @@ sensu_server_uchiwa_users:
     password: "{{ vault_sensu_server_uchiwa_users_guest_password }}"
     accessToken: ""
     readonly: true
+
+sensu_server_graphite_home: /etc/graphite
+sensu_server_graphite_name: graphite

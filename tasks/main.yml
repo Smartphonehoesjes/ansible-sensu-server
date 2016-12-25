@@ -1,8 +1,11 @@
-- include: RedHat.yml
-  when: ansible_os_family == 'RedHat'
+#TODO - GH-125
+#- include: RedHat.yml
+#  when: ansible_os_family == 'RedHat'
 
 - include: Debian.yml
   when: ansible_os_family == 'Debian'
+
+- include: relay.yml
 
 - name: "{{ item }} is running and enabled"
   service:
@@ -10,6 +13,7 @@
     state: started
     enabled: true
   with_items:
+    - carbon-cache
     - sensu-api
     - sensu-server
     - uchiwa
@@ -21,9 +25,17 @@
   notify:
     - restart uchiwa
 
-- name: mailer.json is copied
+- name: be sure {{ item }} is copied
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/carbon/{{ item }}"
+  with_items:
+    - storage-aggregation.conf
+    - storage-schemas.conf
+
+- name: mailer config is copied
   template:
-    src: mailer.j2
+    src: "mailer.j2"
     dest: "{{ sensu_server_conf_d }}/mailer.json"
   notify:
     - restart sensu-server
@@ -35,8 +47,10 @@
   notify:
     - restart sensu-server
 
-- name: ssl directory created
+- name: multiple directories created
   file:
-    path: "{{ sensu_server_ssl }}"
+    path: "{{ item }}"
     state: directory
-  when: uchiwa_ssl is defined
+  with_items:
+    - /etc/graphite/sec
+    - "{{ sensu_server_ssl }}"
