@@ -22,7 +22,9 @@ sensu_plugin_install:
 sensu_server_host: localhost
 sensu_server_home: /etc/sensu
 sensu_server_conf_d: "{{ sensu_server_home }}/conf.d"
-sensu_server_mail_to: user@example.com
+sensu_server_mail_to:
+  - user@example.com
+  - user2@example.com
 sensu_server_ssl: "{{ sensu_server_home }}/ssl"
 sensu_server_uchiwa_port: 3000
 
