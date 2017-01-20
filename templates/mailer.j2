@@ -1,13 +1,13 @@
 {
   "mailer": {
     "mail_from": "sensu-server@{{ ansible_fqdn }}",
-    "mail_to": "{{ sensu_server_mail_to }}",
+    "mail_to": ["{{ sensu_server_mail_to | list | join("\", \"") }}"],
     "smtp_address": "localhost",
     "smtp_port": "25",
     "smtp_domain": "localhost",
     "subscriptions": {
       "subscription_name": {
-        "mail_to": "{{ sensu_server_mail_to }}"
+        "mail_to": ["{{ sensu_server_mail_to | list | join("\", \"") }}"]
       }
     }
   }

@@ -78,6 +78,9 @@ script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /var/log/uchiwa.log'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "LISTEN.*:::2345"'
 
+  #test mailer
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/mailer.json'
+
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
 
