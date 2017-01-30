@@ -43,3 +43,5 @@ sensu_server_uchiwa_users:
 
 sensu_server_graphite_home: /etc/graphite
 sensu_server_graphite_name: graphite
+
+sensu_server_mailer: false
