@@ -39,6 +39,7 @@
     dest: "{{ sensu_server_conf_d }}/mailer.json"
   notify:
     - restart sensu-server
+  when: sensu_server_mailer
 
 - name: handler_mailer.json is copied
   copy:
@@ -46,6 +47,7 @@
     dest: "{{ sensu_server_conf_d }}/handler_mailer.json"
   notify:
     - restart sensu-server
+  when: sensu_server_mailer
 
 - name: multiple directories created
   file:
