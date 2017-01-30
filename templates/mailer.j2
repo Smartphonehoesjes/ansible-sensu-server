@@ -1,14 +1,18 @@
 {
-  "mailer": {
+{% for m in sensu_server_mail_type_to %}
+  "mailer-{{ m.name }}": {
     "mail_from": "sensu-server@{{ ansible_fqdn }}",
-    "mail_to": ["{{ sensu_server_mail_to | list | join("\", \"") }}"],
+    "mail_to": ["{{ m.mail_tos | list | join("\", \"") }}"],
     "smtp_address": "localhost",
     "smtp_port": "25",
     "smtp_domain": "localhost",
     "subscriptions": {
       "subscription_name": {
-        "mail_to": ["{{ sensu_server_mail_to | list | join("\", \"") }}"]
+        "mail_to": ["{{ m.mail_tos | list | join("\", \"") }}"]
       }
     }
-  }
+  }{% if not loop.last %},
+{% endif %}
+{% endfor %}
+
 }
