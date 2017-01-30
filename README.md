@@ -41,6 +41,32 @@ sensu_server_uchiwa_users:
 sensu_server_host: localhost
 ```
 
+* multiple mailer handlers
+
+If a distinction need to be made between notifications from production or other systems.
+
+```
+sensu_server_mailer: true
+```
+
+and
+
+```
+sensu_server_mail_to:
+  - e
+  - f
+  - g
+sensu_server_subscriptions:
+  - name: x
+    mail_to:
+      - a
+      - b
+  - name: y
+    mail_to:
+      - c
+      - d
+```
+
 Dependencies
 ------------
 
@@ -74,6 +100,13 @@ License
 -------
 
 MIT
+
+Additional testing
+------------------
+
+```
+./tests/template.sh
+```
 
 Author Information
 ------------------

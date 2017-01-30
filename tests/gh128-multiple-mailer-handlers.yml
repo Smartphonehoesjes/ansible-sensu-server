@@ -1,0 +1,15 @@
+---
+ansible_fqdn: helloHostname
+sensu_server_mail_to:
+  - e
+  - f
+  - g
+sensu_server_subscriptions:
+  - name: x
+    mail_to:
+      - a
+      - b
+  - name: y
+    mail_to:
+      - c
+      - d

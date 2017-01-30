@@ -6,9 +6,13 @@
     "smtp_port": "25",
     "smtp_domain": "localhost",
     "subscriptions": {
-      "subscription_name": {
-        "mail_to": ["{{ sensu_server_mail_to | list | join("\", \"") }}"]
-      }
+{% for s in sensu_server_subscriptions %}
+      "{{ s.name }}": {
+        "mail_to": ["{{ s.mail_to | list | join("\", \"") }}"]
+      }{% if not loop.last %},
+{% endif %}
+{% endfor %}
+
     }
   }
 }
