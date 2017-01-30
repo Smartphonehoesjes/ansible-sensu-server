@@ -26,13 +26,17 @@
     vault_sensu_server_uchiwa_users_guest_password: guest_password
     vault_sensu_server_graphite_password: graphite_password
     sensu_server_mailer: true
-    sensu_server_mail_type_to:
+    sensu_server_mail_to:
+      - e
+      - f
+      - g
+    sensu_server_subscriptions:
       - name: x
-        mail_tos:
+        mail_to:
           - a
           - b
       - name: y
-        mail_tos:
+        mail_to:
           - c
           - d
 

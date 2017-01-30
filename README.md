@@ -52,13 +52,18 @@ sensu_server_mailer: true
 and
 
 ```
-sensu_server_mail_type_to: 
+sensu_server_mail_to:
+  - e
+  - f
+  - g
+
+sensu_server_subscriptions:
   - name: x
-    mail_tos: 
+    mail_to:
       - a
       - b
   - name: y
-    mail_tos: 
+    mail_to:
       - c
       - d
 ```
