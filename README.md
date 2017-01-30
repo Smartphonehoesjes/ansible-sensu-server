@@ -52,6 +52,7 @@ sensu_server_mailer: true
 and
 
 ```
+<<<<<<< HEAD
 sensu_server_mail_to:
   - e
   - f
@@ -63,6 +64,15 @@ sensu_server_subscriptions:
       - b
   - name: y
     mail_to:
+=======
+sensu_server_mail_type_to: 
+  - name: x
+    mail_tos: 
+      - a
+      - b
+  - name: y
+    mail_tos: 
+>>>>>>> 933d8f1753bc98c96e68c433dc5f3f17d7fe0ba8
       - c
       - d
 ```
