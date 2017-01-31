@@ -8,7 +8,7 @@
     "subscriptions": {
 {% for s in sensu_server_subscriptions %}
       "{{ s.name }}": {
-        "mail_to": ["{{ s.mail_to | list | join("\", \"") }}"]
+        "mail_to": "{{ s.mail_to }}"
       }{% if not loop.last %},
 {% endif %}
 {% endfor %}
