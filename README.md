@@ -59,13 +59,9 @@ sensu_server_mail_to:
 
 sensu_server_subscriptions:
   - name: x
-    mail_to:
-      - a
-      - b
+    mail_to: a
   - name: y
-    mail_to:
-      - c
-      - d
+    mail_to: b
 ```
 
 Dependencies
