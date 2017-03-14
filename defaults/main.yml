@@ -26,8 +26,10 @@ sensu_server_ssl: "{{ sensu_server_home }}/ssl"
 sensu_server_uchiwa_port: 3000
 
 sensu_server_apis:
-  hello: world
-  host: localhost
+  - name: localhost
+    host: 127.0.0.1
+    user: sensu-api
+    pass: "{{ vault_sensu_server_api_password }}"
 
 sensu_server_uchiwa_ssl: true
 

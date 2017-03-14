@@ -56,3 +56,12 @@
   with_items:
     - /etc/graphite/sec
     - "{{ sensu_server_ssl }}"
+
+- name: sensu-api config deployed
+  template:
+    src: api.j2
+    dest: /etc/sensu/conf.d/api.json
+  notify:
+    - restart sensu-api
+    - restart uchiwa
+

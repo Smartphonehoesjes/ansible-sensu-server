@@ -1,0 +1,8 @@
+{
+  "api": {
+    "port": {{ sensu_server_api_port | default(4567) }},
+    "user": "sensu-api",
+    "password": "{{ vault_sensu_server_api_password }}"
+  }
+}
+

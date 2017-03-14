@@ -1,14 +1,14 @@
 {
   "sensu": [
-{% for key, value in sensu_server_apis.iteritems() %}
+{% for api in sensu_server_apis %}
     {
-      "name": "{{ key }}",
-      "host": "{{ value }}",
+      "name": "{{ api.name }}",
+      "host": "{{ api.host }}",
       "port": 4567,
       "ssl": false,
       "path": "",
-      "user": "",
-      "pass": "",
+      "user": "{{ api.user }}",
+      "pass": "{{ api.pass }}",
       "timeout": 10
     }{% if not loop.last %},
 {% endif %}
