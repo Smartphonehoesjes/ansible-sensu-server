@@ -35,6 +35,7 @@
         mail_to: a
       - name: y
         mail_to: b
+    vault_sensu_server_api_password: hahaha
 
   roles:
     - role_under_test
