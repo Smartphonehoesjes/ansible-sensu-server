@@ -22,7 +22,9 @@ sensu_plugin_install:
 sensu_server_host: localhost
 sensu_server_home: /etc/sensu
 sensu_server_conf_d: "{{ sensu_server_home }}/conf.d"
-sensu_server_ssl: "{{ sensu_server_home }}/ssl"
+sensu_server_ssl: "/etc/letsencrypt/live/{{ ansible_fqdn }}"
+sensu_server_ssl_crt: "{{ sensu_server_ssl }}/fullchain.pem"
+sensu_server_ssl_key: "{{ sensu_server_ssl }}/privkey.pem"
 sensu_server_uchiwa_port: 3000
 
 sensu_server_apis:

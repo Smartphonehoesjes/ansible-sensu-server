@@ -18,8 +18,8 @@
   "uchiwa": {
 {% if sensu_server_uchiwa_ssl %}
     "ssl": {
-      "certfile": "{{ sensu_server_ssl }}/uchiwa-cert.pem",
-      "keyfile": "{{ sensu_server_ssl }}/uchiwa-privkey.pem"
+      "certfile": "{{ sensu_server_ssl_crt }}",
+      "keyfile": "{{ sensu_server_ssl_key }}"
     },
 {% endif %}
     "host": "0.0.0.0",
