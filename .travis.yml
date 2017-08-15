@@ -1,102 +1,25 @@
 ---
-sudo: required
+services: docker
 
 env:
-  global:
-    # https://github.com/travis-ci/travis-ci/issues/6461#issuecomment-239577306
-    DOCKER_VERSION: "1.9.1-0~trusty"
-  matrix:
-#    - distro: centos7
-#      init: /usr/lib/systemd/systemd
-#      run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-#      playbook: test.yml
-    - distro: ubuntu1604
-      init: /lib/systemd/systemd
-      run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-      playbook: test.yml
-
-services:
-  - docker
-
-before_install:
-  # Downgrade to older version of Docker engine.
-  - sudo apt-get update
-  - sudo apt-get remove docker-engine -yq
-  - sudo apt-get install docker-engine=$DOCKER_VERSION -yq --no-install-suggests --no-install-recommends --force-yes -o Dpkg::Options::="--force-confnew"
-
-  # Pull container
-  - 'sudo docker pull geerlingguy/docker-${distro}-ansible:latest'
+  - distro: ubuntu1604
 
 script:
-  - container_id=$(mktemp)
-  # Run container in detached state
-  - 'sudo docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} geerlingguy/docker-${distro}-ansible:latest "${init}" > "${container_id}"'
+  # Configure test script so we can run extra tests after playbook is run.
+  - export container_id=$(date +%s)
+  - export cleanup=false
 
-  # Install dependencies.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible --version'
-  - 'sudo docker exec "$(cat ${container_id})" ansible-galaxy install -r /etc/ansible/roles/role_under_test/tests/requirements.yml'
+  # Download test shim.
+  - wget -O ${PWD}/tests/test.sh https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/4298947d0b1bb602913bbf46102abf43f5fe7dce/ansible-role-test.sh
+  - chmod +x ${PWD}/tests/test.sh
 
-  # Ansible syntax check.
-  # http://serverfault.com/questions/803079/what-is-the-correct-syntax-of-defining-role-dependencies-in-the-meta-main-yml-in: - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook} --syntax-check'
-
-  # Test role.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook}'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/fstab'
-
-  # Test role idempotence.
-  - idempotence=$(mktemp)
-  - sudo docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook} | tee -a ${idempotence}
-  - >
-    tail ${idempotence}
-    | grep -q 'changed=0.*failed=0'
-    && (echo 'Idempotence test: pass' && exit 0)
-    || (echo 'Idempotence test: fail' && exit 1)
-
-  # Ensure services are running by checking the ports.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /var/log/rabbitmq'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/rabbitmq.json'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat'
-  # Ensure postfix is listening
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "LISTEN.*\(127.0.0.1\|\*\):25"'
-  # Ensure sensu-client is listening
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "LISTEN.*127.0.0.1:3030"'
-  # Ensure sensu-api is listening
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "LISTEN.*\*:4567"'
-  # Ensure redis is listening
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "LISTEN.*127.0.0.1:6379"'
-  # Ensure rabbitmq is listening
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "LISTEN.*:::5672"'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/init.d'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm /opt/sensu/embedded/bin/gem list --local'
-  
-  # Test websites conf
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/uchiwa.json'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/uchiwa.json | grep "port.*2345"'
-  # Test plugins
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /opt/sensu/embedded/bin | grep "cpu\|http"'
-  # Test uchiwa
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /var/log/uchiwa.log'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "LISTEN.*:::2345"'
-
-  # Test mailer
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/mailer.json'
-
-  # Check whether api password is set.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/api.json | grep hahaha'
-
-  # Show sensu-api and client log.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /var/log/sensu/sensu-client.log'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /var/log/sensu/sensu-api.log'
-
-  # debug sensu-client
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status sensu-client.service'
-
-  # Clean up
-  - 'sudo docker stop "$(cat ${container_id})"'
+  # Run tests.
+  - ${PWD}/tests/test.sh ${distro}
 
 after_failure:
-  #placeholder Check MySQL settings.
-  #- 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /var/log/mysql/error.log'
+  - docker exec $container_id cat /var/log/sensu/sensu-client.log
+  - docker exec $container_id cat /etc/sensu/conf.d/checks.json
+  - docker exec $container_id cksum /etc/sensu/conf.d/checks.json
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
