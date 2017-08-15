@@ -2,7 +2,8 @@
   "handlers": {
     "mailer": {
       "type": "pipe",
-      "command": "handler-mailer.rb"
+      "command": "handler-mailer.rb",
+      "filter": "occurrences"
     }
   }
 }
